@@ -13,6 +13,27 @@ function App({ Component, pageProps }) {
           margin: 0;
           box-sizing: border-box;
         }
+
+        .fade-enter {
+          opacity: 0;
+        }
+
+        .fade-enter-active {
+          opacity: 1;
+        }
+
+        .fade-exit {
+          opacity: 1;
+        }
+
+        .fade-exit-active {
+          opacity: 0;
+        }
+
+        .fade-enter-active,
+        .fade-exit-active {
+          transition: opacity 1000ms ease-in, transform 500ms ease-in;
+        }
       `}</style>
       <Component {...pageProps} />
     </>
