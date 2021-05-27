@@ -12,6 +12,10 @@ function Home() {
       <Head>
         <title>zitat</title>
         <meta name="description" content="나 보려고 만든 페이지" />
+        <meta
+          property="og:image"
+          content="https://zitat.vercel.app/og_image.jpg"
+        />
       </Head>
       <Loading isPending={data.isPending} />
       <App total={data.length ?? 0} isPending={data.isPending}>
