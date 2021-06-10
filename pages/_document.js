@@ -11,7 +11,12 @@ class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
+          <meta name="theme-color" content="#f5cac3" />
+          <meta charSet="utf-8" />
           <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+          <link rel="alternate icon" href="/favicon.ico" />
+          <link rel="apple-touch-icon" href="/logo192.png" />
+          <link rel="manifest" href="/manifest.json" />
           <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
