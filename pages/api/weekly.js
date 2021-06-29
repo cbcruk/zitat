@@ -1,4 +1,5 @@
 import mem from 'mem'
+import redis, { ZITAT_WEEKLY } from '../../lib/redis'
 
 const memoized = mem(
   async () => {
@@ -14,10 +15,19 @@ const memoized = mem(
   }
 )
 
-async function weekly(_req, res) {
-  const data = await memoized()
+async function weekly(req, res) {
+  if (req.method === 'GET') {
+    res.json((await redis.get(ZITAT_WEEKLY)) || (await memoized()))
+  }
 
-  res.json(data)
+  if (req.method === 'POST') {
+    if (req.headers.id === process.env.SCRIPT_ID) {
+      redis.set(ZITAT_WEEKLY, JSON.stringify(req.body))
+      res.status(200).end()
+    } else {
+      res.status(401).end()
+    }
+  }
 }
 
 export default weekly
