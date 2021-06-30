@@ -22,7 +22,7 @@ async function weekly(req, res) {
 
   if (req.method === 'POST') {
     if (req.headers.id === process.env.SCRIPT_ID) {
-      redis.set(ZITAT_WEEKLY, req.body)
+      await redis.set(ZITAT_WEEKLY, JSON.stringify(req.body))
       res.status(200).end()
     } else {
       res.status(401).end()
