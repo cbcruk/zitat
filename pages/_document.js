@@ -19,8 +19,7 @@ class MyDocument extends Document {
           <link rel="manifest" href="/manifest.json" />
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400&display=optional"
-            media="screen and (min-device-width: 1200px)"
+            href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400&display=swap"
           />
           {process.env.NODE_ENV === 'production' && (
             <>
