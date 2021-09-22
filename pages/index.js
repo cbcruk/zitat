@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import useSWR from 'swr'
 import { App, Released, Quote, Author, Loading } from '../components'
 
@@ -9,14 +8,6 @@ function Home() {
 
   return (
     <>
-      <Head>
-        <title>zitat</title>
-        <meta name="description" content="나 보려고 만든 페이지" />
-        <meta
-          property="og:image"
-          content="https://zitat.vercel.app/og_image.jpg"
-        />
-      </Head>
       <Loading isPending={data.isPending} />
       <App total={data.length ?? 0} isPending={data.isPending}>
         {({ page }) => {
@@ -40,5 +31,8 @@ function Home() {
     </>
   )
 }
+
+Home.title = 'zitat'
+Home.description = '나 보려고 만든 페이지'
 
 export default Home

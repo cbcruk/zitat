@@ -1,3 +1,5 @@
+import Head from 'next/head'
+
 function App({ Component, pageProps }) {
   return (
     <>
@@ -35,6 +37,14 @@ function App({ Component, pageProps }) {
           transition: opacity 1000ms ease-in, transform 500ms ease-in;
         }
       `}</style>
+      <Head>
+        <title>{Component.title}</title>
+        <meta name="description" content={Component.description} />
+        <meta
+          property="og:image"
+          content="https://zitat.vercel.app/og_image.jpg"
+        />
+      </Head>
       <Component {...pageProps} />
     </>
   )
