@@ -18,8 +18,11 @@ class MyDocument extends Document {
           <link rel="apple-touch-icon" href="/logo192.png" />
           <link rel="manifest" href="/manifest.json" />
           <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400&display=swap"
+            rel="preload"
+            href="/fonts/noto-serif-kr-v13-latin_korean-regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin=""
           />
           {process.env.NODE_ENV === 'production' && (
             <>

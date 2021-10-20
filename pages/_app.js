@@ -4,6 +4,15 @@ function App({ Component, pageProps }) {
   return (
     <>
       <style jsx global>{`
+        @font-face {
+          font-family: 'Noto Serif KR';
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+          src: url('/fonts/noto-serif-kr-v13-latin_korean-regular.woff2')
+            format('woff2');
+        }
+
         body {
           background-color: #f5cac3;
           font-family: 'Noto Serif KR', serif;
