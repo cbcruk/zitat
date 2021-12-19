@@ -24,19 +24,6 @@ class MyDocument extends Document {
             type="font/woff2"
             crossOrigin=""
           />
-          {process.env.NODE_ENV === 'production' && (
-            <>
-              <script
-                async
-                src="https://www.googletagmanager.com/gtag/js?id=G-NVVEG6TXJK"
-              ></script>
-              <script
-                dangerouslySetInnerHTML={{
-                  __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-NVVEG6TXJK');`,
-                }}
-              ></script>
-            </>
-          )}
         </Head>
         <body>
           <Main />

@@ -1,6 +1,34 @@
+import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { useEffect } from 'react'
+import Analytics from '../components/Analytics'
+import * as gtag from '../lib/gatg'
+
+export function reportWebVitals({ id, name, label, value }) {
+  if (!window.gtag) {
+    return
+  }
+
+  window.gtag('event', name, {
+    event_category:
+      label === 'web-vital' ? 'Web Vitals' : 'Next.js custom metric',
+    value: Math.round(name === 'CLS' ? value * 1000 : value),
+    event_label: id,
+    non_interaction: true,
+  })
+}
 
 function App({ Component, pageProps }) {
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleRouteChange = (url) => gtag.pageview(url)
+
+    router.events.on('routeChangeComplete', handleRouteChange)
+
+    return () => router.events.off('routeChangeComplete', handleRouteChange)
+  }, [router.events])
+
   return (
     <>
       <style jsx global>{`
@@ -54,6 +82,7 @@ function App({ Component, pageProps }) {
           content="https://zitat.vercel.app/og_image.jpg"
         />
       </Head>
+      <Analytics />
       <Component {...pageProps} />
     </>
   )
