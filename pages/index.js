@@ -1,6 +1,9 @@
 import { App, Released, Quote, Author } from '../components'
+import { useSaveData } from '../hooks/useSaveData'
 
 function Home({ data }) {
+  useSaveData(data)
+
   return (
     <App total={data.length ?? 0} isPending={data.isPending}>
       {({ page }) => {

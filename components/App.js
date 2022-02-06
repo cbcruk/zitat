@@ -9,35 +9,6 @@ function App({ total, isPending, children }) {
   return (
     <Fade in={!isPending}>
       <div className="App" {...handlers}>
-        <style jsx>{`
-          .App {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-          }
-
-          .App-inner {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            position: relative;
-            z-index: 2;
-            padding: 1.618rem;
-            background-color: #f5cac3;
-            box-shadow: inset 10px 0px 10px 0px rgb(0 0 0 / 25%);
-          }
-
-          .App-inner.is-end {
-            box-shadow: inset -10px 0px 10px 0px rgb(0 0 0 / 25%);
-          }
-
-          @supports (-webkit-touch-callout: none) {
-            .App {
-              height: -webkit-fill-available !important;
-              min-height: unset;
-            }
-          }
-        `}</style>
         <SwitchTransition>
           <CSSTransition
             key={page}
