@@ -1,3 +1,4 @@
+// @ts-check
 import { useRouter } from 'next/router'
 import QuoteList from '../components/List'
 import TagList from '../components/TagList'
@@ -52,7 +53,8 @@ function Search() {
         onSubmit={async (e) => {
           e.preventDefault()
 
-          const q = e.target.q.value
+          /** @type {string} */
+          const q = e.currentTarget.q.value
 
           router.push({
             query: {

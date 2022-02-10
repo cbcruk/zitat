@@ -32,9 +32,7 @@ export async function handlePost() {
 }
 
 /**
- *
- * @param {import('next').NextApiRequest} req
- * @param {import('next').NextApiResponse} res
+ * @type {import('next').NextApiHandler}
  */
 async function search(req, res) {
   const { method, query } = req
@@ -42,22 +40,24 @@ async function search(req, res) {
 
   if (method === 'GET') {
     if (typeof q === 'string') {
+      /**
+       * @type {AlgoliaSearchResponse}
+       */
       const { hits } = await index.search(q, {
         attributesToRetrieve: [],
       })
+      const result = hits.map(({ objectID, _highlightResult }) => {
+        const { author, desc } = _highlightResult
+
+        return {
+          id: objectID,
+          author: author.value,
+          quote: desc.value,
+        }
+      })
 
       if (hits?.length > 0) {
-        res.json(
-          hits.map(({ objectID, _highlightResult }) => {
-            const { author, desc } = _highlightResult
-
-            return {
-              id: objectID,
-              author: author.value,
-              quote: desc.value,
-            }
-          })
-        )
+        res.json(result)
       } else {
         res.json([])
       }

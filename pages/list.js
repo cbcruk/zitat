@@ -1,3 +1,4 @@
+// @ts-check
 import QuoteList from '../components/List'
 import { useWeeklyData } from '../hooks/useWeeklyData'
 

@@ -1,10 +1,17 @@
+// @ts-check
 import clsx from 'clsx'
 
+/**
+ *
+ * @param {object} props
+ * @param {boolean=} props.isLong
+ * @param {JSX.Element | string} props.children
+ */
 function Quote({ isLong, children }) {
   return (
     <p
       className={clsx('Quote', {
-        'is-long': isLong
+        'is-long': isLong,
       })}
     >
       <style jsx>{`

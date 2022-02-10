@@ -1,3 +1,4 @@
+// @ts-check
 import { Transition } from 'react-transition-group'
 
 const duration = 3000
@@ -9,6 +10,14 @@ const transitionStyles = {
   exited: { opacity: 0 },
 }
 
+/**
+ *
+ * @param {object} props
+ * @param {boolean} props.in
+ * @param {number=} props.timeout
+ * @param {JSX.Element} props.children
+ * @returns
+ */
 function Fade({ in: inProp, timeout, children }) {
   return (
     <Transition in={inProp} timeout={timeout || duration}>

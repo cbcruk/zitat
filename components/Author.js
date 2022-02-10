@@ -1,3 +1,10 @@
+// @ts-check
+
+/**
+ *
+ * @param {object} props
+ * @param {string=} props.author
+ */
 function Author({ author }) {
   if (!author) {
     return null

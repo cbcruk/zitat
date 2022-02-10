@@ -1,3 +1,11 @@
+// @ts-check
+
+/**
+ *
+ * @param {object} props
+ * @param {SearchHistoryItems} props.items
+ * @returns
+ */
 function TagList({ items }) {
   return (
     <div className="TagList">

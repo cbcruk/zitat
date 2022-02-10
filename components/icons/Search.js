@@ -1,3 +1,8 @@
+// @ts-check
+
+/**
+ * @param {import("react").SVGAttributes} props
+ */
 function IconSearch(props) {
   return (
     <svg

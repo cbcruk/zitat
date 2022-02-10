@@ -1,3 +1,11 @@
+// @ts-check
+
+/**
+ *
+ * @param {object} props
+ * @param {TodayItem[]=} props.data
+ * @returns
+ */
 function QuoteList({ data }) {
   if (!data) {
     return null

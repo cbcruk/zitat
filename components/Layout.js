@@ -1,5 +1,12 @@
+// @ts-check
 import Header from './Header'
 
+/**
+ *
+ * @param {object} props
+ * @param {JSX.Element} props.children
+ * @returns
+ */
 function Layout({ children }) {
   return (
     <div className="Layout">

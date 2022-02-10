@@ -1,5 +1,9 @@
+// @ts-check
 import mem from 'mem'
 
+/**
+ * @type {() => Promise<TodayItem[]>}
+ */
 const memoized = mem(
   async () => {
     const response = await fetch(
@@ -14,6 +18,9 @@ const memoized = mem(
   }
 )
 
+/**
+ * @type {import('next').NextApiHandler}
+ */
 async function today(_req, res) {
   const data = await memoized()
 

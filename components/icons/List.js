@@ -1,3 +1,8 @@
+// @ts-check
+
+/**
+ * @param {import("react").SVGAttributes} props
+ */
 function IconList(props) {
   return (
     <svg

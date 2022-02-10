@@ -1,8 +1,14 @@
+// @ts-check
 import clsx from 'clsx'
 import Fade from './Fade'
 import Quote from './Quote'
 import Released from './Released'
 
+/**
+ *
+ * @param {object} props
+ * @param {boolean} props.isPending
+ */
 function Loading({ isPending }) {
   const date = new Date()
 

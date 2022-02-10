@@ -1,6 +1,10 @@
+// @ts-check
 import mem from 'mem'
 import redis, { ZITAT_WEEKLY } from '../../lib/redis'
 
+/**
+ * @type {() => Promise<SearchItem[]>}
+ */
 const memoized = mem(
   async () => {
     const response = await fetch(
@@ -15,6 +19,9 @@ const memoized = mem(
   }
 )
 
+/**
+ * @type {import('next').NextApiHandler}
+ */
 async function weekly(req, res) {
   if (req.method === 'GET') {
     res.json((await redis.get(ZITAT_WEEKLY)) || (await memoized()))

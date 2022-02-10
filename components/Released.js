@@ -1,9 +1,21 @@
+// @ts-check
 import dayjs from 'dayjs'
 
+/**
+ *
+ * @param {string | Date} date
+ * @returns
+ */
 function getFormattedDate(date) {
   return dayjs(date).format('YYYY년 MM월 DD일')
 }
 
+/**
+ *
+ * @param {object} props
+ * @param {string | Date} props.created
+ * @param {string | Date} props.released
+ */
 function Released({ created, released }) {
   return (
     <p className="Released" title={created ? getFormattedDate(created) : ''}>

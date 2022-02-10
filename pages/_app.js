@@ -1,3 +1,4 @@
+// @ts-check
 import Head from 'next/head'
 import Analytics from '../components/Analytics'
 import Layout from '../components/Layout'

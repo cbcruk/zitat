@@ -1,3 +1,8 @@
+// @ts-check
+
+/**
+ * @param {import("react").SVGAttributes} props
+ */
 function IconMoreVert(props) {
   return (
     <svg

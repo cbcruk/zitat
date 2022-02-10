@@ -1,5 +1,16 @@
+// @ts-check
 import { useRouter } from 'next/router'
 import { useEffect, useReducer } from 'react'
+
+/**
+ * @typedef State
+ * @property {HttpStatus} status
+ * @property {SearchItem[]=} data
+ *
+ * @typedef Action
+ * @property {HttpStatus} type
+ * @property {SearchItem[]=} payload
+ */
 
 export const IDLE = 'idle'
 export const PENDING = 'pending'
@@ -9,6 +20,12 @@ export function useData() {
   const router = useRouter()
   const q = router.query?.q
   const [state, dispatch] = useReducer(
+    /**
+     *
+     * @param {State} state
+     * @param {Action} action
+     * @return {State}
+     */
     (state, action) => {
       switch (action.type) {
         case PENDING:
@@ -39,7 +56,13 @@ export function useData() {
       })
 
       fetch(`/api/search?q=${q}`)
-        .then((r) => r.json())
+        .then(
+          /**
+           *
+           * @returns {Promise<SearchItem[]>}
+           */
+          (r) => r.json()
+        )
         .then((data) => {
           dispatch({
             type: SUCCESS,

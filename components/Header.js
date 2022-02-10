@@ -1,3 +1,4 @@
+// @ts-check
 import { useRouter } from 'next/router'
 import { IconList, IconSearch } from './icons'
 import { NavLink } from './NavLink'

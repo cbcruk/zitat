@@ -1,13 +1,21 @@
+// @ts-check
 import clsx from 'clsx'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import usePage from '../hooks/usePage'
 import Fade from './Fade'
 
-function App({ total, isPending, children }) {
+/**
+ *
+ * @param {object} props
+ * @param {number} props.total
+ * @param {({ page: number }) => JSX.Element} props.children
+ * @returns
+ */
+function App({ total, children }) {
   const { page, isStart, isEnd, handlers } = usePage(total)
 
   return (
-    <Fade in={!isPending}>
+    <Fade in>
       <div className="App" {...handlers}>
         <SwitchTransition>
           <CSSTransition
