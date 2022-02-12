@@ -28,7 +28,7 @@ function Search() {
           display: block;
           width: 100%;
           padding: 1rem;
-          border: 1px solid #fbb8ac;
+          border: 1px solid var(--color-primary-dark);
           border-radius: 10px;
           outline: 0;
           background-color: #feeae6;

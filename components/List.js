@@ -3,7 +3,7 @@
 /**
  *
  * @param {object} props
- * @param {TodayItem[]=} props.data
+ * @param {(TodayItem[]|SearchItem[])=} props.data
  * @returns
  */
 function QuoteList({ data }) {
@@ -20,7 +20,7 @@ function QuoteList({ data }) {
         }
 
         .Item {
-          border-top: 1px solid #fbb8ac;
+          border-top: 1px solid var(--color-primary-dark);
         }
 
         .Item:first-child {
@@ -29,7 +29,7 @@ function QuoteList({ data }) {
 
         .Item :global(em) {
           padding: 1px;
-          background-color: #fbb8ac;
+          background-color: var(--color-primary-dark);
           border-radius: 5px;
           font-style: normal;
           text-shadow: 0 0;

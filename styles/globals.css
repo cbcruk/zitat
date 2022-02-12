@@ -7,11 +7,19 @@
     format('woff2');
 }
 
+:root {
+  --color-primary: #e0e0e0;
+  --color-primary-dark: var(--color-primary-dark);
+  --color-accent: #fedbd0;
+  --color-text-primary: #442c2e;
+  --color-background: #f5cac3;
+}
+
 body {
-  background-color: #f5cac3;
+  background-color: var(--color-background);
   font-family: 'Noto Serif KR', serif;
   line-height: 1.5;
-  color: #442c2e;
+  color: var(--color-text-primary);
 }
 
 * {
@@ -26,7 +34,7 @@ img {
 }
 
 ::selection {
-  background-color: #fbb8ac;
+  background-color: var(--color-primary-dark);
 }
 
 .fade-enter {

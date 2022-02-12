@@ -32,7 +32,7 @@ function TagList({ items }) {
         }
 
         .TagList-item:hover {
-          border-color: #fbb8ac;
+          border-color: var(--color-primary-dark);
         }
 
         .TagList-title {

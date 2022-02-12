@@ -18,7 +18,7 @@ function Header() {
           justify-content: space-between;
           gap: 1.618rem;
           padding: calc(1.618rem / 2) 1.618rem;
-          background-color: #fedbd0;
+          background-color: var(--color-accent);
         }
 
         .Header :global(a) {
