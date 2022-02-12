@@ -9,7 +9,7 @@
 
 :root {
   --color-primary: #e0e0e0;
-  --color-primary-dark: var(--color-primary-dark);
+  --color-primary-dark: #fbb8ac;
   --color-accent: #fedbd0;
   --color-text-primary: #442c2e;
   --color-background: #f5cac3;
