@@ -35,7 +35,3 @@ yarn-error.log*
 .vercel
 
 .vercel
-
-.bsb.lock
-.merlin
-lib/
