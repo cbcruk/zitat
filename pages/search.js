@@ -1,9 +1,9 @@
 // @ts-check
 import { useRouter } from 'next/router'
-import QuoteList from '../components/List'
-import TagList from '../components/TagList'
-import { useData } from '../hooks/useData'
-import { useSearchHistory } from '../hooks/useSearchHistory'
+import QuoteList from '../src/components/List'
+import TagList from '../src/components/TagList'
+import { useData } from '../src/hooks/useData'
+import { useSearchHistory } from '../src/hooks/useSearchHistory'
 
 function Search() {
   const router = useRouter()
