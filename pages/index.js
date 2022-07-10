@@ -1,6 +1,6 @@
 // @ts-check
-import { App, Released, Quote, Author } from '../src/components'
-import { useSaveData } from '../src/hooks/useSaveData'
+import { App, Released, Quote, Author } from '../components'
+import { useSaveData } from '../hooks/useSaveData'
 
 /**
  *

@@ -1,8 +1,8 @@
 // @ts-check
 import Head from 'next/head'
-import Analytics from '../src/components/Analytics'
-import Layout from '../src/components/Layout'
-import { useGtag } from '../src/hooks/useGtag'
+import Analytics from '../components/Analytics'
+import Layout from '../components/Layout'
+import { useGtag } from '../hooks/useGtag'
 import '../styles/globals.css'
 
 function App({ Component, pageProps }) {

@@ -1,6 +1,6 @@
 // @ts-check
 import mem from 'mem'
-import redis, { ZITAT_WEEKLY } from '../../src/lib/redis'
+import redis, { ZITAT_WEEKLY } from '../../lib/redis'
 
 /**
  * @type {() => Promise<SearchItem[]>}

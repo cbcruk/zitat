@@ -1,6 +1,6 @@
 // @ts-check
-import QuoteList from '../src/components/List'
-import { useWeeklyData } from '../src/hooks/useWeeklyData'
+import QuoteList from '../components/List'
+import { useWeeklyData } from '../hooks/useWeeklyData'
 
 function List() {
   const { data } = useWeeklyData()
