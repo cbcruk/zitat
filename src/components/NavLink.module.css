@@ -1,0 +1,3 @@
+.NavLink:global(.is-active) {
+  pointer-events: none;
+}

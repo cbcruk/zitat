@@ -1,0 +1,12 @@
+.Released {
+  display: flex;
+  align-items: center;
+  color: #f28482;
+}
+
+.Released-button {
+  border: 0;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+}
