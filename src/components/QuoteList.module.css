@@ -1,0 +1,29 @@
+.List-item {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.Item {
+  border-top: 1px solid var(--color-primary-dark);
+}
+
+.Item:first-child {
+  border-top: 0;
+}
+
+.Item :global(em) {
+  padding: 1px;
+  background-color: var(--color-primary-dark);
+  border-radius: 5px;
+  font-style: normal;
+  text-shadow: 0 0;
+}
+
+.Item-quote {
+  font-weight: bold;
+}
+
+.Item-author {
+  margin-top: 4px;
+  font-size: 12px;
+}
