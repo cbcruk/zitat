@@ -155,3 +155,23 @@ module Script = {
     ~dangerouslySetInnerHTML: {"__html": string}=?,
   ) => React.element = "default"
 }
+
+module Html = {
+  @module("next/document") @react.component
+  external make: (~lang: string, ~children: React.element) => React.element = "Html"
+}
+
+module DocumentHead = {
+  @module("next/document") @react.component
+  external make: (~children: React.element) => React.element = "Head"
+}
+
+module DocumentMain = {
+  @module("next/document") @react.component
+  external make: unit => React.element = "Main"
+}
+
+module DocumentNextScript = {
+  @module("next/document") @react.component
+  external make: unit => React.element = "NextScript"
+}

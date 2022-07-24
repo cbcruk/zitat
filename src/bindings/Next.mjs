@@ -30,6 +30,14 @@ var Dynamic = {};
 
 var Script = {};
 
+var Html = {};
+
+var DocumentHead = {};
+
+var DocumentMain = {};
+
+var DocumentNextScript = {};
+
 export {
   GetServerSideProps ,
   GetStaticProps ,
@@ -40,6 +48,10 @@ export {
   $$Error ,
   Dynamic ,
   Script ,
+  Html ,
+  DocumentHead ,
+  DocumentMain ,
+  DocumentNextScript ,
   
 }
 /* No side effect */
