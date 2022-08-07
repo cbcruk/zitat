@@ -30,6 +30,7 @@ type TodayItem = {
   quote: string
   released: string
   released_text?: string
+  released_date_string: string
 }
 
 type HttpStatus = 'idle' | 'pending' | 'success'
