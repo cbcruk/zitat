@@ -25,9 +25,11 @@ type SearchItem = {
 type TodayItem = {
   author: string
   created_at: string
+  created_at_text?: string
   id: string
   quote: string
   released: string
+  released_text?: string
 }
 
 type HttpStatus = 'idle' | 'pending' | 'success'

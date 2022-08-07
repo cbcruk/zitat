@@ -1,14 +1,4 @@
-// @ts-check
-import dayjs from 'dayjs'
-
-/**
- *
- * @param {string | Date} date
- * @returns
- */
-function getFormattedDate(date) {
-  return dayjs(date).format('YYYY년 MM월 DD일')
-}
+import { getFormattedDate } from 'utils'
 
 /**
  *
@@ -18,7 +8,7 @@ function getFormattedDate(date) {
  */
 function Released({ created, released }) {
   return (
-    <p className="Released" title={created ? getFormattedDate(created) : ''}>
+    <p className="Released" title={created || ''}>
       <style jsx>{`
         .Released {
           display: flex;
@@ -33,7 +23,7 @@ function Released({ created, released }) {
           cursor: pointer;
         }
       `}</style>
-      {getFormattedDate(released || new Date())}
+      {released || getFormattedDate(new Date())}
     </p>
   )
 }

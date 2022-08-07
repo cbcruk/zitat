@@ -1,4 +1,5 @@
 // @ts-check
+import { weekly } from '$lib/sheet'
 import { App, Released, Quote, Author } from '../components'
 import { useSaveData } from '../hooks/useSaveData'
 
@@ -28,7 +29,10 @@ function Home({ data }) {
 
           return (
             <>
-              <Released created={item.created_at} released={item.released} />
+              <Released
+                created={item.created_at_text}
+                released={item.released_text}
+              />
               <Quote isLong={item.quote && item.quote.length > 100}>
                 {item.quote}
               </Quote>
@@ -42,14 +46,13 @@ function Home({ data }) {
 }
 
 export async function getStaticProps() {
-  const response = await fetch('https://zitat.vercel.app/api/weekly')
-  /** @type {Promise<TodayItem[]>} */
-  const data = await response.json()
+  const data = await weekly()
 
   return {
     props: {
       data,
     },
+    revalidate: 60,
   }
 }
 
