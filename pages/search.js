@@ -1,19 +1,20 @@
 // @ts-check
 import { useRouter } from 'next/router'
+import useSWR from 'swr'
 import QuoteList from '../components/List'
 import TagList from '../components/TagList'
-import { useData } from '../hooks/useData'
 import { useSearchHistory } from '../hooks/useSearchHistory'
 
 function Search() {
   const router = useRouter()
-  const {
-    state: { status, data },
-    isNoResult,
-  } = useData()
-  const { items: searchItems } = useSearchHistory(status)
-  const placeholder =
-    status === 'pending' ? '검색중입니다...' : '내용, 저자 검색'
+  const { q } = router.query
+  const { data } = useSWR(['/api/search', q], () =>
+    q ? fetch(`/api/search?q=${q}`).then((r) => r.json()) : null
+  )
+  const isLoading = q && !data
+  const isEmpty = q && data?.length === 0
+  const hasData = data?.length > 0
+  const { items: searchItems } = useSearchHistory(hasData)
 
   return (
     <div className="Search">
@@ -69,18 +70,19 @@ function Search() {
           defaultValue={router.query.q || ''}
           autoFocus={true}
           className="Search-input"
-          placeholder={placeholder}
-          disabled={status === 'pending'}
+          placeholder="내용, 저자 검색"
+          disabled={isLoading}
           title="검색어를 입력해주세요."
         />
       </form>
-      {isNoResult && (
+      {isLoading && <p>로딩중...</p>}
+      {isEmpty && (
         <div className="Search-blank">
           검색 결과가 없습니다. 키워드를 다시 선택해보세요...🤯
         </div>
       )}
-      {!data && <TagList items={searchItems} />}
-      <QuoteList data={data} />
+      {!q && <TagList items={searchItems} />}
+      {data && <QuoteList data={data} />}
     </div>
   )
 }
