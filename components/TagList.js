@@ -1,5 +1,7 @@
 // @ts-check
 
+import Link from 'next/link'
+
 /**
  *
  * @param {object} props
@@ -14,41 +16,56 @@ function TagList({ items }) {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          font-weight: bold;
+          font-weight: 500;
         }
 
         .TagList-items {
           display: flex;
-          gap: 6px;
-          margin-top: 10px;
+          gap: 10px;
           font-size: 12px;
         }
 
         .TagList-item {
-          padding: 2px 4px;
-          border: 1px solid #442c2e;
+          display: inline-flex;
+          align-items: center;
+          height: 32px;
+          padding: 6px 12px;
           border-radius: 10px;
+          border: 1px solid var(--md-sys-color-outline);
+          color: var(--md-sys-color-on-surface-variant);
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 20px;
+          text-decoration: none;
           transition: all 0.3s ease-out;
         }
 
         .TagList-item:hover {
-          border-color: var(--color-primary-dark);
+          background-color: rgba(73, 69, 79, 0.08);
         }
 
         .TagList-title {
-          font-weight: bold;
+          display: none;
+          font-weight: 500;
         }
       `}</style>
-      <details>
-        <summary className="TagList-title">검색 기록</summary>
+      <div className="TagList-details">
+        <div className="TagList-title">검색 기록</div>
         <div className="TagList-items">
           {items.map((item, index) => (
-            <span key={index} className="TagList-item">
-              {item}
-            </span>
+            <Link
+              key={index}
+              href={{
+                query: {
+                  q: item,
+                },
+              }}
+            >
+              <a className="TagList-item">{item}</a>
+            </Link>
           ))}
         </div>
-      </details>
+      </div>
     </div>
   )
 }

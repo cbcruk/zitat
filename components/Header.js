@@ -1,6 +1,5 @@
 // @ts-check
 import { useRouter } from 'next/router'
-import { IconList, IconSearch } from './icons'
 import { NavLink } from './NavLink'
 
 function Header() {
@@ -17,8 +16,9 @@ function Header() {
           align-items: center;
           justify-content: space-between;
           gap: 1.618rem;
+          height: 64px;
           padding: calc(1.618rem / 2) 1.618rem;
-          background-color: var(--color-accent);
+          background-color: var(--md-sys-color-background);
         }
 
         .Header :global(a) {
@@ -29,11 +29,6 @@ function Header() {
         .Header :global(.is-active) {
           font-weight: bold;
           text-decoration: underline wavy #f28482;
-        }
-
-        .Header-right {
-          display: flex;
-          gap: 10px;
         }
       `}</style>
       <NavLink href="/" isActive={router.asPath === '/'}>
@@ -50,18 +45,6 @@ function Header() {
           />
         </svg>
       </NavLink>
-      <div className="Header-right">
-        <NavLink href="/list" title="기록">
-          <IconList />
-        </NavLink>
-        <NavLink
-          href="/search"
-          title="검색"
-          isActive={router.asPath === '/search'}
-        >
-          <IconSearch />
-        </NavLink>
-      </div>
     </header>
   )
 }

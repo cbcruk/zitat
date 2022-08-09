@@ -13,7 +13,7 @@ function Released({ created, released }) {
         .Released {
           display: flex;
           align-items: center;
-          color: #f28482;
+          color: var(--md-sys-color-tertiary);
         }
 
         .Released-button {

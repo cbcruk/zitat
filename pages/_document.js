@@ -31,7 +31,7 @@ class MyDocument extends Document {
             crossOrigin=""
           />
         </Head>
-        <body>
+        <body className="material-theme">
           <Main />
           <NextScript />
         </body>

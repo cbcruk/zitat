@@ -15,28 +15,35 @@ function App({ total, children }) {
   const { page, isStart, isEnd, handlers } = usePage(total)
 
   return (
-    <Fade in>
-      <div className="App" {...handlers}>
-        <SwitchTransition>
-          <CSSTransition
-            key={page}
-            addEndListener={(node, done) =>
-              node.addEventListener('transitionend', done, false)
-            }
-            classNames="fade"
-          >
-            <div
-              className={clsx('App-inner', {
-                'is-start': isStart,
-                'is-end': isEnd,
-              })}
+    <>
+      <style jsx>{`
+        .App {
+          word-break: keep-all;
+        }
+      `}</style>
+      <Fade in>
+        <div className="App" {...handlers}>
+          <SwitchTransition>
+            <CSSTransition
+              key={page}
+              addEndListener={(node, done) =>
+                node.addEventListener('transitionend', done, false)
+              }
+              classNames="fade"
             >
-              {children({ page })}
-            </div>
-          </CSSTransition>
-        </SwitchTransition>
-      </div>
-    </Fade>
+              <div
+                className={clsx('App-inner', {
+                  'is-start': isStart,
+                  'is-end': isEnd,
+                })}
+              >
+                {children({ page })}
+              </div>
+            </CSSTransition>
+          </SwitchTransition>
+        </div>
+      </Fade>
+    </>
   )
 }
 

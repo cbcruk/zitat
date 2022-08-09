@@ -20,7 +20,8 @@ function QuoteList({ data }) {
         }
 
         .Item {
-          border-top: 1px solid var(--color-primary-dark);
+          border-top: 1px solid var(--md-sys-color-outline);
+          word-break: keep-all;
         }
 
         .Item:first-child {
@@ -29,14 +30,12 @@ function QuoteList({ data }) {
 
         .Item :global(em) {
           padding: 1px;
-          background-color: var(--color-primary-dark);
+          background-color: var(--md-sys-color-primary);
           border-radius: 5px;
           font-style: normal;
+          font-weight: 500;
           text-shadow: 0 0;
-        }
-
-        .Item-quote {
-          font-weight: bold;
+          color: var(--md-sys-color-on-primary);
         }
 
         .Item-author {

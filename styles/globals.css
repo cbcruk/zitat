@@ -7,6 +7,22 @@
     format('woff2');
 }
 
+@font-face {
+  font-family: 'Noto Serif KR';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/noto-serif-kr-v20-latin_korean-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Serif KR';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/fonts/noto-serif-kr-v20-latin_korean-900.woff2') format('woff2');
+}
+
 :root {
   --color-primary: #e0e0e0;
   --color-primary-dark: #fbb8ac;
@@ -16,10 +32,10 @@
 }
 
 body {
-  background-color: var(--color-background);
+  background-color: var(--md-sys-color-background);
   font-family: 'Noto Serif KR', serif;
   line-height: 1.5;
-  color: var(--color-text-primary);
+  color: var(--md-sys-color-on-background);
 }
 
 * {
@@ -34,7 +50,8 @@ img {
 }
 
 ::selection {
-  background-color: var(--color-primary-dark);
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
 }
 
 .fade-enter {

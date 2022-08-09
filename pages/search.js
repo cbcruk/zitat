@@ -28,14 +28,21 @@ function Search() {
         .Search-input {
           display: block;
           width: 100%;
+          height: 48px;
           padding: 1rem;
-          border: 1px solid var(--color-primary-dark);
-          border-radius: 10px;
+          border: 0;
+          border-radius: 9999px;
           outline: 0;
-          background-color: #feeae6;
+          background-color: var(--md-sys-color-surface-variant);
           font-size: 1rem;
           font-family: inherit;
           color: inherit;
+          -webkit-appearance: textfield;
+        }
+
+        .Search-input:-webkit-autofill,
+        .Search-input:-webkit-autofill:focus {
+          transition: background-color 600000s 0s, color 600000s 0s;
         }
 
         .Search-input::placeholder {

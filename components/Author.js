@@ -16,7 +16,6 @@ function Author({ author }) {
         .Author {
           padding-top: 1.618rem;
           margin-top: auto;
-          font-style: italic;
         }
       `}</style>
       -{author}

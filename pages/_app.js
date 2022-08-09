@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Analytics from '../components/Analytics'
 import Layout from '../components/Layout'
 import { useGtag } from '../hooks/useGtag'
+import '../styles/theme.css'
 import '../styles/globals.css'
 
 function App({ Component, pageProps }) {

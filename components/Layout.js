@@ -1,5 +1,6 @@
 // @ts-check
 import Header from './Header'
+import { NavigationBar } from './NavigationBar'
 
 /**
  *
@@ -15,6 +16,7 @@ function Layout({ children }) {
           display: flex;
           flex-direction: column;
           min-height: 100vh;
+          padding-bottom: 80px;
         }
 
         .Layout-inner {
@@ -24,7 +26,6 @@ function Layout({ children }) {
           position: relative;
           z-index: 2;
           padding: 1.618rem;
-          background-color: #ffeae6;
         }
 
         @supports (-webkit-touch-callout: none) {
@@ -36,6 +37,7 @@ function Layout({ children }) {
       `}</style>
       <Header />
       <div className="Layout-inner">{children}</div>
+      <NavigationBar />
     </div>
   )
 }
