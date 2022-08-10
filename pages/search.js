@@ -1,11 +1,14 @@
 // @ts-check
 import { useRouter } from 'next/router'
+import { useEffect, useRef } from 'react'
 import useSWR from 'swr'
 import QuoteList from '../components/List'
 import TagList from '../components/TagList'
 import { useSearchHistory } from '../hooks/useSearchHistory'
 
 function Search() {
+  /** @type {import('react').MutableRefObject<HTMLInputElement>} */
+  const inputSearchRef = useRef()
   const router = useRouter()
   const { q } = router.query
   const { data } = useSWR(['/api/search', q], () =>
@@ -15,6 +18,10 @@ function Search() {
   const isEmpty = q && data?.length === 0
   const hasData = data?.length > 0
   const { items: searchItems } = useSearchHistory(hasData)
+
+  useEffect(() => {
+    inputSearchRef.current.value = typeof q === 'string' ? q : ''
+  }, [q])
 
   return (
     <div className="Search">
@@ -72,9 +79,10 @@ function Search() {
         }}
       >
         <input
+          ref={inputSearchRef}
           type="search"
           name="q"
-          defaultValue={router.query.q || ''}
+          defaultValue={router.query?.q ?? ''}
           autoFocus={true}
           className="Search-input"
           placeholder="내용, 저자 검색"
