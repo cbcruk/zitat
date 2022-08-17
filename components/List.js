@@ -22,6 +22,7 @@ function QuoteList({ data }) {
         .Item {
           border-top: 1px solid var(--md-sys-color-outline);
           word-break: keep-all;
+          white-space: pre-line;
         }
 
         .Item:first-child {
