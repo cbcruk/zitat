@@ -33,8 +33,3 @@ yarn-error.log*
 
 # vercel
 .vercel
-
-.vercel
-
-public/sitemap*.xml
-public/google*.html
