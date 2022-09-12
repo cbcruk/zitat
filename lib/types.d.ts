@@ -1,3 +1,5 @@
+import usePage from 'hooks/usePage'
+
 declare var gtag: any
 
 type Hit = {
@@ -36,3 +38,5 @@ type TodayItem = {
 type HttpStatus = 'idle' | 'pending' | 'success'
 
 type SearchHistoryItems = string[]
+
+type Paging = ReturnType<typeof usePage>

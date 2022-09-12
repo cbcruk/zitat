@@ -5,12 +5,18 @@ import { getFormattedDate } from 'utils'
  * @param {object} props
  * @param {string | Date} props.created
  * @param {string | Date} props.released
+ * @param {JSX.Element} props.children
  */
-function Released({ created, released }) {
+function Released({ created, released, children }) {
   return (
-    <p className="Released" title={created || ''}>
+    <div className="Released">
       <style jsx>{`
         .Released {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .Released-date {
           display: flex;
           align-items: center;
           color: var(--md-sys-color-tertiary);
@@ -23,8 +29,11 @@ function Released({ created, released }) {
           cursor: pointer;
         }
       `}</style>
-      {released || getFormattedDate(new Date())}
-    </p>
+      <p className="Released-date" title={created || ''}>
+        {released || getFormattedDate(new Date())}
+      </p>
+      {children}
+    </div>
   )
 }
 

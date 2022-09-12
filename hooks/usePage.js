@@ -41,13 +41,13 @@ function usePage(total) {
     onSwipedRight: () => {
       dispatch(NEXT)
     },
-    preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   })
 
   return {
     page,
     handlers,
+    dispatch,
     isStart: page === 0,
     isEnd: page === lastIndex,
   }
