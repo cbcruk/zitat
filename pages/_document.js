@@ -17,7 +17,7 @@ class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
-          <meta name="theme-color" content="#f5cac3" />
+          <meta name="theme-color" content="#6750a4" />
           <meta charSet="utf-8" />
           <link rel="icon" href="/favicon.ico" sizes="any" />
           <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
