@@ -1,7 +1,9 @@
 // @ts-check
+import { useCallback } from 'react'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import usePage from '../hooks/usePage'
 import Author from './Author'
+import { Fab } from './Fab'
 import Fade from './Fade'
 import { Navigate } from './Navigate'
 import Quote from './Quote'
@@ -15,6 +17,19 @@ import Released from './Released'
 function App({ data }) {
   const total = data.length ?? 0
   const { page, isStart, isEnd, handlers, dispatch } = usePage(total)
+  const handleClipboardWrite = useCallback(
+    /**
+     * @param {string} data
+     */
+    async (data) => {
+      try {
+        await navigator.clipboard.writeText(data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    []
+  )
 
   return (
     <>
@@ -61,6 +76,13 @@ function App({ data }) {
                     </div>
                   </CSSTransition>
                 </SwitchTransition>
+                <Fab
+                  handleClick={() =>
+                    handleClipboardWrite(
+                      `${item.quote}${item.author && `\n\n-${item.author}`}`
+                    )
+                  }
+                />
               </>
             )
           })()}
