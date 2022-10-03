@@ -33,6 +33,10 @@ function Layout({ children }) {
             height: -webkit-fill-available !important;
             min-height: unset;
           }
+
+          .Layout-inner {
+            padding-bottom: calc(80px + 1.618rem);
+          }
         }
       `}</style>
       <Header />
