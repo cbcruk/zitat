@@ -1,13 +1,12 @@
+import clsx from 'clsx'
 import Header from './Header'
 import { NavigationBar } from './NavigationBar'
 
-type Props = {
-  children: React.ReactNode
-}
+type Props = JSX.IntrinsicElements['div']
 
-function Layout({ children }: Props) {
+function Layout({ className, children }: Props) {
   return (
-    <div className="Layout">
+    <div className={clsx(['Layout', className])}>
       <style jsx>{`
         .Layout {
           display: flex;
