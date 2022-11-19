@@ -1,6 +1,10 @@
 import usePage from 'hooks/usePage'
 
-declare var gtag: any
+declare global {
+  interface Window {
+    gtag: any
+  }
+}
 
 type Hit = {
   objectID: string
