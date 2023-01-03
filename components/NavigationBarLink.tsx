@@ -15,6 +15,10 @@ export function NavigationBarLink({ href, icon, label }: Props) {
   return (
     <>
       <style jsx>{`
+        .NavigationBarLinkContainer {
+          text-decoration: none;
+        }
+
         .NavigationBarLink {
           display: flex;
           flex-direction: column;
@@ -57,7 +61,7 @@ export function NavigationBarLink({ href, icon, label }: Props) {
           font-weight: 500;
         }
       `}</style>
-      <Link href={href}>
+      <Link href={href} className="NavigationBarLinkContainer">
         <div
           className={clsx('NavigationBarLink', {
             'is-active': isActive,
