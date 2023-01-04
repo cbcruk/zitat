@@ -24,6 +24,10 @@ export function NavigationBar() {
           display: flex;
           justify-content: center;
         }
+
+        .NavigationBar-item :global(a) {
+          text-decoration: none;
+        }
       `}</style>
       <div className="NavigationBar-item">
         <NavigationBarLink href="/" icon={<IconCalendarToday />} label="홈" />

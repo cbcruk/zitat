@@ -15,10 +15,6 @@ export function NavigationBarLink({ href, icon, label }: Props) {
   return (
     <>
       <style jsx>{`
-        .NavigationBarLinkContainer {
-          text-decoration: none;
-        }
-
         .NavigationBarLink {
           display: flex;
           flex-direction: column;
