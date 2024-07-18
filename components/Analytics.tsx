@@ -2,10 +2,6 @@ import Script from 'next/script'
 import { GA_TRACKING_ID } from '../lib/gtag'
 
 function Analytics() {
-  if (process.env.NODE_ENV !== 'production') {
-    return null
-  }
-
   return (
     <>
       <Script

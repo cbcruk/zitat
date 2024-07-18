@@ -1,0 +1,15 @@
+.root[data-is-active='true'] .link {
+  color: var(--md-sys-color-on-surface);
+}
+
+.root[data-is-active='true'] .icon {
+  background-color: var(--md-sys-color-primary);
+}
+
+.root[data-is-active='true'] .icon :global(svg) {
+  fill: var(--md-sys-color-on-primary);
+}
+
+.icon :global(svg) {
+  fill: var(--md-sys-color-on-surface-variant);
+}

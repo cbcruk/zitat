@@ -1,32 +1,15 @@
-import clsx from 'clsx'
+import { ComponentProps } from 'react'
 import Balancer from 'react-wrap-balancer'
 
-type Props = {
-  isLong?: boolean
-  children: React.ReactNode
-}
+type Props = ComponentProps<'p'>
 
-function Quote({ isLong, children }: Props) {
+function Quote({ children, ...props }: Props) {
   return (
     <Balancer>
       <p
-        className={clsx('Quote', {
-          'is-long': isLong,
-        })}
+        className='my-[0.702rem] whitespace-pre-line break-keep text-[2.618rem] data-[is-long="true"]:text-[1.618rem];'
+        {...props}
       >
-        <style jsx>{`
-          .Quote {
-            margin-top: 0.702rem;
-            margin-bottom: 0.702rem;
-            white-space: pre-line;
-            word-break: keep-all;
-            font-size: 2.618rem;
-          }
-
-          .Quote.is-long {
-            font-size: 1.618rem;
-          }
-        `}</style>
         {children}
       </p>
     </Balancer>

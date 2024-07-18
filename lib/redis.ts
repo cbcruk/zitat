@@ -1,7 +1,8 @@
 import Redis from 'ioredis'
 
-const url = process.env.REDIS_URL || ''
-const redis = new Redis(url)
+const path = process.env.REDIS_URL || ''
+
+const redis = new Redis(path)
 
 export const ZITAT_WEEKLY = 'ZITAT_WEEKLY'
 

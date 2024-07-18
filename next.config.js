@@ -1,6 +1,2 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  reactStrictMode: true,
-  swcMinify: true,
-  optimizeFonts: false,
-}
+module.exports = {}

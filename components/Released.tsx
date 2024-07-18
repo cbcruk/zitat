@@ -1,35 +1,18 @@
+import { ComponentProps } from 'react'
 import { getFormattedDate } from '../utils'
+import { TodayItem } from '../lib/types'
 
-type Props = {
-  created: string
-  released: string
-  children?: React.ReactNode
-}
+type Props = ComponentProps<'div'> &
+  Pick<TodayItem, 'created_at_text' | 'released_text'>
 
-function Released({ created, released, children }: Props) {
+function Released({ created_at_text, released_text, children }: Props) {
   return (
-    <div className="Released">
-      <style jsx>{`
-        .Released {
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .Released-date {
-          display: flex;
-          align-items: center;
-          color: var(--md-sys-color-tertiary);
-        }
-
-        .Released-button {
-          border: 0;
-          background-color: transparent;
-          color: inherit;
-          cursor: pointer;
-        }
-      `}</style>
-      <p className="Released-date" title={created}>
-        {released || getFormattedDate(new Date())}
+    <div className="flex justify-between">
+      <p
+        className="flex items-center text-[var(--md-sys-color-tertiary)]"
+        title={created_at_text}
+      >
+        {released_text || getFormattedDate(new Date())}
       </p>
       {children}
     </div>
