@@ -14,10 +14,7 @@ async function Home() {
 
   return (
     <div className="break-keep">
-      <Released
-        created_at_text={item.created_at_text}
-        released_text={item.released_text}
-      />
+      <Released created={item.created_at_text} released={item.released_text} />
       <Quote data-is-long={Boolean(item.quote && item.quote.length > 100)}>
         {item.quote}
       </Quote>

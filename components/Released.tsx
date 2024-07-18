@@ -2,17 +2,19 @@ import { ComponentProps } from 'react'
 import { getFormattedDate } from '../utils'
 import { TodayItem } from '../lib/types'
 
-type Props = ComponentProps<'div'> &
-  Pick<TodayItem, 'created_at_text' | 'released_text'>
+type Props = ComponentProps<'div'> & {
+  created: TodayItem['created_at_text']
+  released: TodayItem['released_text']
+}
 
-function Released({ created_at_text, released_text, children }: Props) {
+function Released({ created, released, children }: Props) {
   return (
     <div className="flex justify-between">
       <p
         className="flex items-center text-[var(--md-sys-color-tertiary)]"
-        title={created_at_text}
+        title={created}
       >
-        {released_text || getFormattedDate(new Date())}
+        {released || getFormattedDate(new Date())}
       </p>
       {children}
     </div>
