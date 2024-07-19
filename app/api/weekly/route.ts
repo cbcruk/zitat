@@ -1,5 +1,5 @@
 import { headers } from 'next/headers'
-import redis, { ZITAT_WEEKLY } from '../../lib/redis'
+import redis, { ZITAT_WEEKLY } from '../../../lib/redis'
 
 export async function POST(request: Request) {
   const headersList = headers()
