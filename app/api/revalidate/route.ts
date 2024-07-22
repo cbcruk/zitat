@@ -11,6 +11,7 @@ export function GET(request: Request) {
   }
 
   revalidatePath('/')
+  revalidatePath('/list')
 
   return new Response('성공', {
     status: 200,
