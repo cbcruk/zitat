@@ -1,5 +1,6 @@
-import { IconList, IconSearch } from './icons'
 import IconCalendarToday from './icons/IconCalendarToday'
+import IconList from './icons/IconList'
+import IconSearch from './icons/IconSearch'
 import {
   NavigationBarLink,
   NavigationBarLinkIcon,

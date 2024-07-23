@@ -1,7 +1,7 @@
 'use client'
 
 import { ComponentProps } from 'react'
-import { IconContentCopy } from './icons'
+import IconContentCopy from './icons/IconContentCopy'
 
 type Props = ComponentProps<'button'> & {
   text: string
