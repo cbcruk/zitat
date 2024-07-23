@@ -4,9 +4,10 @@ import redis, { ZITAT_WEEKLY } from '../../../lib/redis'
 export async function POST(request: Request) {
   const headersList = headers()
   const id = headersList.get('id')
+  const body = await request.json()
 
   if (id === process.env.SCRIPT_ID) {
-    await redis.set(ZITAT_WEEKLY, JSON.stringify(request.body))
+    await redis.set(ZITAT_WEEKLY, JSON.stringify(body))
 
     return new Response('성공적으로 업데이트되었습니다.', {
       status: 200,
