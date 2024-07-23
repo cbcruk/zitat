@@ -1,0 +1,23 @@
+.input {
+  display: block;
+  width: 100%;
+  height: 48px;
+  padding: 1rem;
+  border: 0;
+  border-radius: 9999px;
+  outline: 0;
+  background-color: var(--md-sys-color-surface-variant);
+  font-size: 1rem;
+  font-family: inherit;
+  color: inherit;
+  -webkit-appearance: textfield;
+}
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+.input::placeholder {
+  color: inherit;
+}

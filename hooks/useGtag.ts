@@ -1,17 +1,11 @@
-import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import * as gtag from '../lib/gtag'
+import { usePathname } from 'next/navigation'
 
 export function useGtag() {
-  const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      const handleRouteChange = (url: string) => gtag.pageview(url)
-
-      router.events.on('routeChangeComplete', handleRouteChange)
-
-      return () => router.events.off('routeChangeComplete', handleRouteChange)
-    }
-  }, [router.events])
+    gtag.pageview(pathname)
+  }, [pathname])
 }

@@ -1,27 +1,24 @@
+'use client'
+
+import { ComponentProps } from 'react'
 import { IconContentCopy } from './icons'
 
-type Props = {
-  handleClick: () => void
+type Props = ComponentProps<'button'> & {
+  text: string
 }
 
-export function Fab({ handleClick }: Props) {
+export function Fab({ text }: Props) {
   return (
-    <button onClick={handleClick} className="Fab">
-      <style jsx>{`
-        .Fab {
-          position: fixed;
-          right: 1.618rem;
-          bottom: calc(80px + 1.618rem);
-          width: 56px;
-          height: 56px;
-          border: 0;
-          border-radius: 16px;
-          box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
-          filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.3));
-          background-color: var(--md-sys-color-secondary);
-          cursor: pointer;
+    <button
+      className="fixed right-[1.618rem] bottom-[calc(80px+1.618rem)] flex items-center justify-center w-[56px] h-[56px] border-0 rounded-[16px] bg-[var(--md-sys-color-secondary)] shadow-[0px_4px_8px_3px_rgba(0,0,0,0.15)] drop-shadow-[0px_1px_3px_rgba(0,0,0,0.3)] cursor-pointer"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(text)
+        } catch (error) {
+          console.error(error)
         }
-      `}</style>
+      }}
+    >
       <IconContentCopy />
     </button>
   )

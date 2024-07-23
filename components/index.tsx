@@ -1,4 +1,3 @@
-export { default as App } from './App'
 export { default as Released } from './Released'
 export { default as Quote } from './Quote'
 export { default as Author } from './Author'

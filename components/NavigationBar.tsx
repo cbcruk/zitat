@@ -1,42 +1,37 @@
 import { IconList, IconSearch } from './icons'
 import IconCalendarToday from './icons/IconCalendarToday'
-import { NavigationBarLink } from './NavigationBarLink'
+import {
+  NavigationBarLink,
+  NavigationBarLinkIcon,
+  NavigationBarLinkLabel,
+} from './NavigationBarLink'
 
 export function NavigationBar() {
   return (
-    <div className="NavigationBar">
-      <style jsx>{`
-        .NavigationBar {
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          z-index: 10;
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
-          width: 100%;
-          height: 80px;
-          background-color: var(--md-sys-color-surface-variant);
-        }
-
-        .NavigationBar-item {
-          flex: 1;
-          display: flex;
-          justify-content: center;
-        }
-
-        .NavigationBar-item :global(a) {
-          text-decoration: none;
-        }
-      `}</style>
-      <div className="NavigationBar-item">
-        <NavigationBarLink href="/" icon={<IconCalendarToday />} label="홈" />
+    <div className="fixed bottom-0 left-0 z-[10] flex justify-around items-center w-full h-[80px] bg-[var(--md-sys-color-surface-variant)]">
+      <div className="flex-1 flex justify-center">
+        <NavigationBarLink href="/">
+          <NavigationBarLinkIcon>
+            <IconCalendarToday />
+          </NavigationBarLinkIcon>
+          <NavigationBarLinkLabel>홈</NavigationBarLinkLabel>
+        </NavigationBarLink>
       </div>
-      <div className="NavigationBar-item">
-        <NavigationBarLink href="/list" icon={<IconList />} label="기록" />
+      <div className="flex-1 flex justify-center">
+        <NavigationBarLink href="/list">
+          <NavigationBarLinkIcon>
+            <IconList />
+          </NavigationBarLinkIcon>
+          <NavigationBarLinkLabel>기록</NavigationBarLinkLabel>
+        </NavigationBarLink>
       </div>
-      <div className="NavigationBar-item">
-        <NavigationBarLink href="/search" icon={<IconSearch />} label="검색" />
+      <div className="flex-1 flex justify-center">
+        <NavigationBarLink href="/search">
+          <NavigationBarLinkIcon>
+            <IconSearch />
+          </NavigationBarLinkIcon>
+          <NavigationBarLinkLabel>검색</NavigationBarLinkLabel>
+        </NavigationBarLink>
       </div>
     </div>
   )

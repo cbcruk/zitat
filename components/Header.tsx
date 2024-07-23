@@ -1,36 +1,14 @@
-import { useRouter } from 'next/router'
+'use client'
+
+import { usePathname } from 'next/navigation'
 import { NavLink } from './NavLink'
 
 function Header() {
-  const router = useRouter()
+  const pathname = usePathname()
 
   return (
-    <header className="Header">
-      <style jsx>{`
-        .Header {
-          position: sticky;
-          top: 0;
-          z-index: 10;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1.618rem;
-          height: 64px;
-          padding: calc(1.618rem / 2) 1.618rem;
-          background-color: var(--md-sys-color-background);
-        }
-
-        .Header :global(a) {
-          color: inherit;
-          text-decoration: none;
-        }
-
-        .Header :global(.is-active) {
-          font-weight: bold;
-          text-decoration: underline wavy #f28482;
-        }
-      `}</style>
-      <NavLink href="/" isActive={router.asPath === '/'}>
+    <header className="sticky top-0 z-[10] flex items-center justify-between gap-[1.618rem] h-[64px] p-[calc(1.618rem/2)_1.618rem] bg-[var(--md-sys-color-background)]">
+      <NavLink href="/" data-is-active={pathname === '/'}>
         <svg
           width="25"
           height="25"
