@@ -1,5 +1,3 @@
-import usePage from 'hooks/usePage'
-
 declare global {
   interface Window {
     gtag: any
@@ -38,9 +36,3 @@ type TodayItem = {
   released_text?: string
   released_date_string: string
 }
-
-type HttpStatus = 'idle' | 'pending' | 'success'
-
-type SearchHistoryItems = string[]
-
-type Paging = ReturnType<typeof usePage>
