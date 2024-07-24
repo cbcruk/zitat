@@ -1,10 +1,10 @@
+import { TodayItemSchema } from '../schema/item'
 import { getFormattedDate } from '../utils'
 import { getResult } from './redis'
-import { TodayItem } from './types'
 
 export async function weekly() {
   const rawData = await getResult()
-  const data: TodayItem[] = JSON.parse(rawData || '')
+  const data: TodayItemSchema[] = JSON.parse(rawData || '')
   const transformData = data.map((item) => {
     return {
       ...item,

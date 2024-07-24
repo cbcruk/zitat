@@ -1,9 +1,9 @@
 import clsx from 'clsx'
-import { SearchItem, TodayItem } from '../lib/types'
 import styles from './List.module.css'
+import { SearchItemSchema, TodayItemSchema } from '../schema/item'
 
 type Props = {
-  data: TodayItem[] | SearchItem[]
+  data: TodayItemSchema[] | SearchItemSchema[]
 }
 
 function QuoteList({ data }: Props) {
