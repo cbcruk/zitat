@@ -1,5 +1,5 @@
 import algoliasearch from 'algoliasearch'
-import { AlgoliaSearchResponse } from '../../lib/types'
+import { AlgoliaSearchResponseSchema } from '../../schema/algolia'
 
 const client = algoliasearch(
   process.env.ALGOLIA_APP_ID || '',
@@ -13,7 +13,7 @@ export async function getSearchResult(q: string) {
     return []
   }
 
-  const { hits }: AlgoliaSearchResponse = await index.search(q, {
+  const { hits }: AlgoliaSearchResponseSchema = await index.search(q, {
     attributesToRetrieve: [],
   })
   const result = hits.map(({ objectID, _highlightResult }) => {

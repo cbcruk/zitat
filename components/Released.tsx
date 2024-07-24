@@ -1,10 +1,10 @@
 import { ComponentProps } from 'react'
 import { getFormattedDate } from '../utils'
-import { TodayItem } from '../lib/types'
+import { TodayItemSchema } from '../schema/item'
 
 type Props = ComponentProps<'div'> & {
-  created: TodayItem['created_at_text']
-  released: TodayItem['released_text']
+  created: TodayItemSchema['created_at_text']
+  released: TodayItemSchema['released_text']
 }
 
 function Released({ created, released, children }: Props) {

@@ -1,6 +1,6 @@
-import { TodayItem } from '../lib/types'
+import { TodayItemSchema } from '../schema/item'
 
-type Props = Pick<TodayItem, 'author'>
+type Props = Pick<TodayItemSchema, 'author'>
 
 function Author({ author }: Props) {
   if (!author) {
