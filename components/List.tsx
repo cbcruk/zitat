@@ -14,7 +14,7 @@ function QuoteList({ data }: Props) {
           <div
             key={id}
             className={clsx(
-              'py-[10px] border-[var(--md-sys-color-outline)] break-keep whitespace-pre-line',
+              'py-[10px] first:pt-0 border-[var(--md-sys-color-outline)] break-keep whitespace-pre-line',
               styles.item
             )}
           >

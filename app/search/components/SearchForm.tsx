@@ -23,7 +23,7 @@ export function SearchForm() {
   }
 
   return (
-    <form action={handleSearch}>
+    <form action={handleSearch} className="flex">
       <input
         type="search"
         name="q"
