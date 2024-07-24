@@ -18,6 +18,7 @@ export function Fab({ text }: Props) {
           console.error(error)
         }
       }}
+      aria-label="본문 내용 복사하기"
     >
       <IconContentCopy className="text-[var(--md-sys-color-on-primary-light)] dark:text-[var(--md-sys-color-on-primary-container-light)]" />
     </button>

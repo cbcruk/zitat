@@ -8,7 +8,11 @@ function Header() {
 
   return (
     <header className="sticky top-0 z-[10] flex items-center justify-between gap-[1.618rem] h-[64px] p-[calc(1.618rem/2)_1.618rem] bg-[var(--md-sys-color-background)]">
-      <NavLink href="/" data-is-active={pathname === '/'}>
+      <NavLink
+        href="/"
+        aria-label="홈으로 이동"
+        data-is-active={pathname === '/'}
+      >
         <svg
           width="25"
           height="25"
