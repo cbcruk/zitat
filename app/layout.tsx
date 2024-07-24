@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   openGraph: {
     images: ['https://zitat.vercel.app/og_image.jpg'],
   },
-  themeColor: '#6750a4',
   icons: [
     { rel: 'icon', url: '/favicon.ico', sizes: 'any' },
     { rel: 'icon', url: '/favicon.svg', type: 'image/svg+xml' },
