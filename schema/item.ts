@@ -1,13 +1,5 @@
 import { z } from 'zod'
 
-const searchItemSchema = z.object({
-  author: z.string(),
-  id: z.string(),
-  quote: z.string(),
-})
-
-export type SearchItemSchema = z.infer<typeof searchItemSchema>
-
 const todayItemSchema = z.object({
   author: z.string(),
   created_at: z.string(),

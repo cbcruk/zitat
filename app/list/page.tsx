@@ -1,4 +1,4 @@
-import QuoteList from '../../components/List'
+import QuoteList from '../../components/QuoteList'
 import { weekly } from '../../lib/sheet'
 
 export const metadata = {

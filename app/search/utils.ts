@@ -1,30 +1,16 @@
-import algoliasearch from 'algoliasearch'
-import { AlgoliaSearchResponseSchema } from '../../schema/algolia'
-
-const client = algoliasearch(
-  process.env.ALGOLIA_APP_ID || '',
-  process.env.ALGOLIA_API_KEY || ''
-)
-
-const index = client.initIndex('zitat')
+import { sqlite } from '../db/db'
+import { SelectQuoteSchema } from '../db/schema'
 
 export async function getSearchResult(q: string) {
   if (!q) {
     return []
   }
 
-  const { hits }: AlgoliaSearchResponseSchema = await index.search(q, {
-    attributesToRetrieve: [],
-  })
-  const result = hits.map(({ objectID, _highlightResult }) => {
-    const { author, desc } = _highlightResult
+  const rows = sqlite
+    .prepare(
+      `SELECT uuid, date, highlight(zitat_fts, 2, '<em>', '</em>') as quote, highlight(zitat_fts, 3, '<em>', '</em>') as author FROM zitat_fts WHERE zitat_fts MATCH '${q}*';`
+    )
+    .all() as SelectQuoteSchema[]
 
-    return {
-      id: objectID,
-      author: author.value,
-      quote: desc.value,
-    }
-  })
-
-  return hits?.length > 0 ? result : []
+  return rows
 }

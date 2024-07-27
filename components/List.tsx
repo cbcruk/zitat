@@ -1,33 +1,9 @@
-import clsx from 'clsx'
+import { ComponentProps } from 'react'
 import styles from './List.module.css'
-import { SearchItemSchema, TodayItemSchema } from '../schema/item'
+import clsx from 'clsx'
 
-type Props = {
-  data: TodayItemSchema[] | SearchItemSchema[]
+type Props = ComponentProps<'div'>
+
+export function List({ children }: Props) {
+  return <div className={clsx(['divide-y', styles.root])}>{children}</div>
 }
-
-function QuoteList({ data }: Props) {
-  return (
-    <div className="divide-y">
-      {data.map(({ id, quote, author }) => {
-        return (
-          <div
-            key={id}
-            className={clsx(
-              'py-[10px] first:pt-0 border-[var(--md-sys-color-outline)] break-keep whitespace-pre-line',
-              styles.item
-            )}
-          >
-            <p dangerouslySetInnerHTML={{ __html: quote }} />
-            <p
-              className="mt-[4px] text-[12px]"
-              dangerouslySetInnerHTML={{ __html: author }}
-            />
-          </div>
-        )
-      })}
-    </div>
-  )
-}
-
-export default QuoteList

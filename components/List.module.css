@@ -1,4 +1,4 @@
-.item :global(em) {
+.root :global(em) {
   padding: 1px;
   background-color: var(--md-sys-color-primary);
   border-radius: 5px;
