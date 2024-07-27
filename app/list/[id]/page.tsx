@@ -24,6 +24,10 @@ export async function generateStaticParams() {
 async function Detail({ params }: Props) {
   const [item] = await db.select().from(zitat).where(eq(zitat.uuid, params.id))
 
+  if (!item) {
+    return null
+  }
+
   return (
     <div className="break-keep">
       <Quote data-is-long={Boolean(item.quote && item.quote.length > 100)}>
