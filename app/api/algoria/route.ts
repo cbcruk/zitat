@@ -18,7 +18,7 @@ export async function GET(request: Request) {
   const q = url.searchParams.get('q')
 
   if (!q) {
-    return []
+    return new Response(JSON.stringify([]))
   }
 
   const { hits }: AlgoliaSearchResponseSchema = await algoriaIndex.search(q, {
@@ -34,5 +34,7 @@ export async function GET(request: Request) {
     }
   })
 
-  return hits?.length > 0 ? result : []
+  const body = hits?.length > 0 ? result : []
+
+  return new Response(JSON.stringify(body))
 }
