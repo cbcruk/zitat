@@ -1,5 +1,5 @@
 {
   "functions": {
-    "app/db": "zitat.db"
+    "app/db/db.ts": "zitat.db"
   }
 }
