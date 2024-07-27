@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "app/db/db.ts": {
+      "includeFiles": "zitat.db"
+    }
+  }
+}
