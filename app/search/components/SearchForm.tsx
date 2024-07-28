@@ -22,18 +22,19 @@ export function SearchForm() {
     router.replace(href)
   }
 
+  const q = searchParams.get('q')
+
   return (
     <form action={handleSearch} className="flex">
       <input
         type="search"
         name="q"
-        defaultValue={searchParams.get('q') || ''}
-        autoFocus={true}
+        defaultValue={q || ''}
+        autoFocus={!q}
         placeholder="내용, 저자 검색"
         title="검색어를 입력해주세요."
         className="block w-full h-12 bg-[color:var(--md-sys-color-surface-variant)] text-base text-inherit p-4 rounded-full border-0"
       />
-      <button type="submit"></button>
     </form>
   )
 }
