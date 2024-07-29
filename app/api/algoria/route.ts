@@ -1,7 +1,7 @@
 import { algoriaIndex } from '../../../lib/algoria'
 import { AlgoliaSearchResponseSchema } from '../../../schema/algolia'
-import { db } from '../../db/db'
-import { zitat } from '../../db/schema'
+import { db } from '../../../lib/db/db'
+import { zitat } from '../../../lib/db/schema'
 
 export async function POST() {
   const objects = await db.select().from(zitat)

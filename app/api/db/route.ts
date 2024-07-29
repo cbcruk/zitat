@@ -1,5 +1,5 @@
-import { db } from '../../db/db'
-import { zitat } from '../../db/schema'
+import { db } from '../../../lib/db/db'
+import { zitat } from '../../../lib/db/schema'
 
 export async function POST(request: Request) {
   const rows = (await request.json()) as string[][]

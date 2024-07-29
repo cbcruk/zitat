@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
-import { db } from '../../db/db'
-import { zitat } from '../../db/schema'
+import { db } from '../../../lib/db/db'
+import { zitat } from '../../../lib/db/schema'
 import Author from '../../../components/Author'
 import { Fab } from '../../../components/Fab'
 import Quote from '../../../components/Quote'
