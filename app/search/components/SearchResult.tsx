@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { SelectQuoteSchema } from '../../db/schema'
+import { SelectQuoteSchema } from '../../../lib/db/schema'
 import { List } from '../../../components/List'
 
 type Props = {

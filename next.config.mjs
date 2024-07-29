@@ -3,6 +3,7 @@ const nextConfig = {
   experimental: {
     outputFileTracingIncludes: {
       '/search': ['./zitat.db'],
+      '/list/*': ['./zitat.db'],
     },
   },
 }

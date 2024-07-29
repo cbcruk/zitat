@@ -1,5 +1,5 @@
-import { sqlite } from '../db/db'
-import { SelectQuoteSchema } from '../db/schema'
+import { sqlite } from '../../lib/db/db'
+import { SelectQuoteSchema } from '../../lib/db/schema'
 
 export async function getSearchResult(q: string) {
   if (!q) {
