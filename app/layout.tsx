@@ -32,7 +32,7 @@ const notoSans = Noto_Serif_KR({
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ko">
-      {process.env.NODE_ENV !== 'production' && <Analytics />}
+      {process.env.NODE_ENV === 'production' && <Analytics />}
       <body className={clsx([notoSans.className, 'material-theme'])}>
         <div className="flex flex-col min-h-screen pb-[80px] supports-[-webkit-touch-callout=none]:h-[-webkit-fill-available] supports-[-webkit-touch-callout=none]:min-h-[unset]">
           <Header />
@@ -41,7 +41,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </div>
           <NavigationBar />
         </div>
-        {process.env.NODE_ENV !== 'production' && <GoogleTag />}
+        {process.env.NODE_ENV === 'production' && <GoogleTag />}
       </body>
     </html>
   )
