@@ -30,10 +30,12 @@ async function Detail({ params }: Props) {
 
   return (
     <>
-      <Quote data-is-long={Boolean(item.quote && item.quote.length > 100)}>
-        {item.quote}
-      </Quote>
-      <Author author={item.author} />
+      <blockquote>
+        <Quote data-is-long={Boolean(item.quote && item.quote.length > 100)}>
+          {item.quote}
+        </Quote>
+        <Author author={item.author} />
+      </blockquote>
       <Fab text={`${item.quote}${item.author && `\n\n-${item.author}`}`} />
     </>
   )

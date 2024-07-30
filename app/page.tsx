@@ -15,10 +15,12 @@ async function Home() {
   return (
     <>
       <Released created={item.created_at_text} released={item.released_text} />
-      <Quote data-is-long={Boolean(item.quote && item.quote.length > 100)}>
-        {item.quote}
-      </Quote>
-      <Author author={item.author} />
+      <blockquote>
+        <Quote data-is-long={Boolean(item.quote && item.quote.length > 100)}>
+          {item.quote}
+        </Quote>
+        <Author author={item.author} />
+      </blockquote>
       <Fab text={`${item.quote}${item.author && `\n\n-${item.author}`}`} />
     </>
   )
