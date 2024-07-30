@@ -29,13 +29,13 @@ async function Detail({ params }: Props) {
   }
 
   return (
-    <div className="break-keep">
+    <>
       <Quote data-is-long={Boolean(item.quote && item.quote.length > 100)}>
         {item.quote}
       </Quote>
       <Author author={item.author} />
       <Fab text={`${item.quote}${item.author && `\n\n-${item.author}`}`} />
-    </div>
+    </>
   )
 }
 
