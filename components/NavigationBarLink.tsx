@@ -4,25 +4,25 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import styles from './NavigationBarLink.module.css'
 import { ComponentProps } from 'react'
-import { URLPattern } from 'next/server'
 import { usePathname } from 'next/navigation'
+import { getPathMatch } from 'next/dist/shared/lib/router/utils/path-match'
 
 type Props = ComponentProps<typeof Link> & {
-  urlPattern?: Pick<URLPattern, 'pathname'>
+  urlPattern?: {
+    pathname: string
+  }
 }
 
 export function NavigationBarLink({ href, urlPattern, children }: Props) {
   const pathname = usePathname()
-  const pattern = new URLPattern({
-    pathname: urlPattern?.pathname ?? `${href}`,
-  })
-  const isActive = pattern.test(window.location.origin + pathname)
+  const pathMatcher = getPathMatch(urlPattern?.pathname ?? href.toString())
+  const isActive = pathMatcher(pathname)
 
   return (
     <Link
       href={href}
       className={clsx('no-underline', styles.root)}
-      data-is-active={isActive}
+      data-is-active={Boolean(isActive)}
     >
       <div
         className={clsx(
