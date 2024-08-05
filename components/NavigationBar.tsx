@@ -19,7 +19,7 @@ export function NavigationBar() {
         </NavigationBarLink>
       </div>
       <div className="flex-1 flex justify-center">
-        <NavigationBarLink href="/list">
+        <NavigationBarLink href="/list" urlPattern={{ pathname: '/list/:id?' }}>
           <NavigationBarLinkIcon>
             <IconList />
           </NavigationBarLinkIcon>
