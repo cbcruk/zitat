@@ -1,32 +1,11 @@
-import { TodayItemSchema } from '../schema/item'
-import Link from 'next/link'
-import { List } from './List'
+import clsx from 'clsx'
+import styles from './QuoteList.module.css'
+import { ComponentProps } from 'react'
 
-type Props = {
-  data: TodayItemSchema[]
-}
+type Props = ComponentProps<'div'>
 
-function QuoteList({ data }: Props) {
-  return (
-    <List>
-      {data.map(({ id, quote, author }) => {
-        return (
-          <div
-            key={id}
-            className="py-[10px] first:pt-0 border-[var(--md-sys-color-outline)] break-keep whitespace-pre-line"
-          >
-            <Link href={`/list/${id}`}>
-              <p dangerouslySetInnerHTML={{ __html: quote }} />
-              <p
-                className="mt-[4px] text-[12px]"
-                dangerouslySetInnerHTML={{ __html: author }}
-              />
-            </Link>
-          </div>
-        )
-      })}
-    </List>
-  )
+function QuoteList({ children }: Props) {
+  return <div className={clsx(['divide-y', styles.root])}>{children}</div>
 }
 
 export default QuoteList
