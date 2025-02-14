@@ -10,8 +10,8 @@ export function GET(request: Request) {
     })
   }
 
-  revalidatePath('/')
-  revalidatePath('/list')
+  revalidatePath('/', 'page')
+  revalidatePath('/list', 'layout')
 
   return new Response('성공', {
     status: 200,
