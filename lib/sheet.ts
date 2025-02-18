@@ -1,16 +1,23 @@
 import { TodayItemSchema } from '../schema/item'
 import { getFormattedDate } from '../utils'
-import { getResult } from './redis'
 
 export async function weekly() {
-  const rawData = await getResult()
-  const data = JSON.parse(rawData || '')
+  const response = await fetch(
+    `https://script.google.com/macros/s/${process.env.SCRIPT_URL}/exec?type=weekly`,
+    {
+      next: {
+        tags: ['weekly'],
+        revalidate: 86400,
+      },
+    }
+  )
+  const data = (await response.json()) as unknown as TodayItemSchema[]
 
   if (!Array.isArray(data)) {
     return []
   }
 
-  const transformData = (data as TodayItemSchema[]).map((item) => {
+  const transformData = data.map((item) => {
     return {
       ...item,
       created_at_text: getFormattedDate(item.created_at),
