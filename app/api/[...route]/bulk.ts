@@ -1,8 +1,11 @@
+import { Hono } from 'hono'
 import { db } from '../../../lib/db/db'
 import { zitat } from '../../../lib/db/schema'
 
-export async function POST(request: Request) {
-  const rows = (await request.json()) as string[][]
+export const bulk = new Hono()
+
+bulk.post('/', async (c) => {
+  const rows = (await c.req.json()) as string[][]
 
   await db.insert(zitat).values(
     rows.map((row) => {
@@ -20,4 +23,4 @@ export async function POST(request: Request) {
   return new Response('성공적으로 업데이트되었습니다.', {
     status: 200,
   })
-}
+})

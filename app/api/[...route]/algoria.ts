@@ -1,9 +1,12 @@
-import { algoriaIndex } from '../../../lib/algoria'
-import { AlgoliaSearchResponseSchema } from '../../../schema/algolia'
+import { Hono } from 'hono'
 import { db } from '../../../lib/db/db'
 import { zitat } from '../../../lib/db/schema'
+import { algoriaIndex } from '../../../lib/algoria'
+import { AlgoliaSearchResponseSchema } from '../../../schema/algolia'
 
-export async function POST() {
+export const algoria = new Hono()
+
+algoria.post('/', async () => {
   const objects = await db.select().from(zitat)
 
   await algoriaIndex.replaceAllObjects(objects)
@@ -11,10 +14,10 @@ export async function POST() {
   return new Response('성공적으로 업데이트되었습니다.', {
     status: 200,
   })
-}
+})
 
-export async function GET(request: Request) {
-  const url = new URL(request.url)
+algoria.get('/', async (c) => {
+  const url = new URL(c.req.url)
   const q = url.searchParams.get('q')
 
   if (!q) {
@@ -36,5 +39,7 @@ export async function GET(request: Request) {
 
   const body = hits?.length > 0 ? result : []
 
-  return new Response(JSON.stringify(body))
-}
+  return new Response(JSON.stringify(body), {
+    status: 200,
+  })
+})
