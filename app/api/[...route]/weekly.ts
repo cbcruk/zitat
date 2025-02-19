@@ -1,11 +1,12 @@
-import { headers } from 'next/headers'
 import redis, { ZITAT_WEEKLY } from '../../../lib/redis'
 import { revalidatePath, revalidateTag } from 'next/cache'
+import { Hono } from 'hono'
 
-export async function POST(request: Request) {
-  const headersList = headers()
-  const id = headersList.get('id')
-  const body = await request.json()
+export const weekly = new Hono()
+
+weekly.post('/', async (c) => {
+  const id = c.req.header('id')
+  const body = c.body
 
   if (id === process.env.SCRIPT_ID) {
     await redis.set(ZITAT_WEEKLY, JSON.stringify(body))
@@ -21,4 +22,4 @@ export async function POST(request: Request) {
       status: 401,
     })
   }
-}
+})

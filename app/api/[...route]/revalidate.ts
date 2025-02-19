@@ -1,7 +1,10 @@
 import { revalidatePath } from 'next/cache'
+import { Hono } from 'hono'
 
-export function GET(request: Request) {
-  const url = new URL(request.url)
+export const revalidate = new Hono()
+
+revalidate.get('/', async (c) => {
+  const url = new URL(c.req.url)
   const secret = url.searchParams.get('secret')
 
   if (secret !== process.env.REVALIDATE_SECRET_TOKEN) {
@@ -16,4 +19,4 @@ export function GET(request: Request) {
   return new Response('성공', {
     status: 200,
   })
-}
+})

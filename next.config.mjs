@@ -4,6 +4,7 @@ const nextConfig = {
     outputFileTracingIncludes: {
       '/search': ['./zitat.db'],
       '/list/*': ['./zitat.db'],
+      '/api/*': ['./zitat.db'],
     },
   },
 }
