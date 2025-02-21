@@ -1,6 +1,12 @@
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 import { ComponentProps } from 'react'
 import { SelectQuoteSchema } from '../lib/db/schema'
-import { ReleasedTime } from './ReleasedTime'
+import { getFormattedDate } from '../utils'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 type Props = ComponentProps<'div'> & {
   released: SelectQuoteSchema['date']
@@ -13,7 +19,7 @@ function Released({ released, children }: Props) {
         className="flex items-center text-[var(--md-sys-color-tertiary)]"
         title={released}
       >
-        <ReleasedTime />
+        {getFormattedDate(dayjs().tz('Asia/Seoul').toDate())}
       </p>
       {children}
     </div>
