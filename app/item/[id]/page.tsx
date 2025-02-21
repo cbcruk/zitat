@@ -1,5 +1,4 @@
-import { eq } from 'drizzle-orm'
-import { db } from '../../../lib/db/db'
+import { db, getItemById } from '../../../lib/db/db'
 import { zitat } from '../../../lib/db/schema'
 import Author from '../../../components/Author'
 import { Fab } from '../../../components/Fab'
@@ -22,7 +21,7 @@ export async function generateStaticParams() {
 }
 
 async function Detail({ params }: Props) {
-  const [item] = await db.select().from(zitat).where(eq(zitat.uuid, params.id))
+  const [item] = await getItemById(params.id)
 
   if (!item) {
     return null

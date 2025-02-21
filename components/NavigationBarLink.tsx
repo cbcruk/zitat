@@ -20,6 +20,7 @@ export function NavigationBarLink({ href, urlPattern, children }: Props) {
 
   return (
     <Link
+      prefetch
       href={href}
       className={clsx('no-underline', styles.root)}
       data-is-active={Boolean(isActive)}

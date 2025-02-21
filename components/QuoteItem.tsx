@@ -26,7 +26,7 @@ function QuoteItemAuthor({ children }: ComponentProps<'p'>) {
 export function QuoteItem({ id, children }: Props) {
   return (
     <div className="py-[10px] first:pt-0 border-[var(--md-sys-color-outline)] break-keep whitespace-pre-line">
-      <Link href={`/list/${id}`}>{children}</Link>
+      <Link href={`/item/${id}`}>{children}</Link>
     </div>
   )
 }
