@@ -19,7 +19,11 @@ export function NavigationBar() {
         </NavigationBarLink>
       </div>
       <div className="flex-1 flex justify-center">
-        <NavigationBarLink href="/list" urlPattern={{ pathname: '/list/:id?' }}>
+        <NavigationBarLink
+          prefetch
+          href="/list"
+          urlPattern={{ pathname: '/list/:id?' }}
+        >
           <NavigationBarLinkIcon>
             <IconList />
           </NavigationBarLinkIcon>
@@ -27,7 +31,7 @@ export function NavigationBar() {
         </NavigationBarLink>
       </div>
       <div className="flex-1 flex justify-center">
-        <NavigationBarLink href="/search">
+        <NavigationBarLink prefetch href="/search">
           <NavigationBarLinkIcon>
             <IconSearch />
           </NavigationBarLinkIcon>

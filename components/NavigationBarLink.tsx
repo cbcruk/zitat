@@ -13,17 +13,22 @@ type Props = ComponentProps<typeof Link> & {
   }
 }
 
-export function NavigationBarLink({ href, urlPattern, children }: Props) {
+export function NavigationBarLink({
+  href,
+  urlPattern,
+  children,
+  ...props
+}: Props) {
   const pathname = usePathname()
   const pathMatcher = getPathMatch(urlPattern?.pathname ?? href.toString())
   const isActive = pathMatcher(pathname)
 
   return (
     <Link
-      prefetch
       href={href}
       className={clsx('no-underline', styles.root)}
       data-is-active={Boolean(isActive)}
+      {...props}
     >
       <div
         className={clsx(
