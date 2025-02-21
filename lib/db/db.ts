@@ -8,9 +8,11 @@ export const sqlite = new Database('zitat.db')
 export const db = drizzle(sqlite)
 
 export function getListByQuery(q: string) {
-  const result = db.all<SelectQuoteSchema>(
-    sql`SELECT uuid, date, highlight(zitat_fts, 2, '<em>', '</em>') as quote, highlight(zitat_fts, 3, '<em>', '</em>') as author FROM zitat_fts WHERE zitat_fts MATCH '${q}*';`
-  )
+  const result = sqlite
+    .prepare(
+      `SELECT uuid, date, highlight(zitat_fts, 2, '<em>', '</em>') as quote, highlight(zitat_fts, 3, '<em>', '</em>') as author FROM zitat_fts WHERE zitat_fts MATCH '${q}*';`
+    )
+    .all() as SelectQuoteSchema[]
 
   return result
 }
