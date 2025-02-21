@@ -2,11 +2,10 @@ import Author from '../components/Author'
 import { Fab } from '../components/Fab'
 import Quote from '../components/Quote'
 import Released from '../components/Released'
-import { weekly } from '../lib/sheet'
+import { getRandomItem } from '../lib/db/db'
 
 async function Home() {
-  const data = await weekly()
-  const item = data.at(0)
+  const item = await getRandomItem()
 
   if (!item) {
     return null
@@ -14,7 +13,7 @@ async function Home() {
 
   return (
     <>
-      <Released created={item.created_at_text} released={item.released_text} />
+      <Released released={item.date} />
       <blockquote>
         <Quote data-is-long={Boolean(item.quote && item.quote.length > 100)}>
           {item.quote}
@@ -26,6 +25,6 @@ async function Home() {
   )
 }
 
-export const revalidate = 0
+export const revalidate = 3600
 
 export default Home

@@ -8,21 +8,26 @@ import { usePathname } from 'next/navigation'
 import { getPathMatch } from 'next/dist/shared/lib/router/utils/path-match'
 
 type Props = ComponentProps<typeof Link> & {
-  urlPattern?: {
-    pathname: string
-  }
+  urlPatterns?: string[]
 }
 
-export function NavigationBarLink({ href, urlPattern, children }: Props) {
+export function NavigationBarLink({
+  href,
+  urlPatterns,
+  children,
+  ...props
+}: Props) {
   const pathname = usePathname()
-  const pathMatcher = getPathMatch(urlPattern?.pathname ?? href.toString())
-  const isActive = pathMatcher(pathname)
+  const isActive =
+    urlPatterns?.some((pattern) => getPathMatch(pattern)(pathname)) ||
+    getPathMatch(href.toString())(pathname)
 
   return (
     <Link
       href={href}
       className={clsx('no-underline', styles.root)}
       data-is-active={Boolean(isActive)}
+      {...props}
     >
       <div
         className={clsx(

@@ -19,3 +19,10 @@ export const zitat_fts = sqliteTable('zitat_fts', {
 export const selectQuoteSchema = createSelectSchema(zitat)
 
 export type SelectQuoteSchema = z.infer<typeof selectQuoteSchema>
+
+export const dateRangeSchema = z.object({
+  first_month: z.string(),
+  last_month: z.string(),
+})
+
+export type DateRangeSchema = z.infer<typeof dateRangeSchema>
