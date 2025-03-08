@@ -34,6 +34,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "knip": "^5.27.0",
+    "openai": "^4.86.2",
     "typescript": "5.5.3"
   }
 }
