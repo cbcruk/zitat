@@ -1,6 +1,11 @@
 import { MetadataRoute } from 'next'
+import { db } from '../lib/db/db'
+import { getTableColumns } from 'drizzle-orm'
+import { zitat } from '../lib/db/schema'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const rows = await db.select(getTableColumns(zitat)).from(zitat)
+
   return [
     {
       url: 'https://zitat.vercel.app',
@@ -11,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: 'https://zitat.vercel.app/list',
       lastModified: new Date(),
-      changeFrequency: 'daily',
+      changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
@@ -20,5 +25,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.7,
     },
+    ...rows.map((row) => {
+      return {
+        url: `https://zitat.vercel.app/item/${row.uuid}`,
+        lastModified: new Date(),
+        changeFrequency: 'yearly' as const,
+        priority: 0.6,
+      }
+    }),
   ]
 }
