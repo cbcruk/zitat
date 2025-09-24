@@ -1,4 +1,5 @@
 import { getListByQuery } from '../../lib/db/db'
+import { SelectQuoteSchema } from '../../lib/db/schema'
 
 export async function getSearchResult(q: string) {
   if (!q) {
@@ -7,5 +8,5 @@ export async function getSearchResult(q: string) {
 
   const rows = await getListByQuery(q)
 
-  return rows
+  return rows as unknown as SelectQuoteSchema[]
 }
