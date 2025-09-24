@@ -6,10 +6,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "knip": "knip"
+    "knip": "knip",
+    "mcp": "npx tsx mcp-server.ts"
   },
   "dependencies": {
-    "better-sqlite3": "^11.1.2",
+    "@libsql/client": "^0.15.15",
+    "@modelcontextprotocol/sdk": "^1.18.1",
     "clsx": "1.2.1",
     "dayjs": "1.11.4",
     "drizzle-orm": "^0.32.1",
@@ -25,7 +27,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.11",
     "@types/node": "^20.14.10",
     "@types/react": "^18",
     "@types/react-dom": "^18",

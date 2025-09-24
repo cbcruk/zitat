@@ -5,7 +5,7 @@ export async function getSearchResult(q: string) {
     return []
   }
 
-  const rows = getListByQuery(q)
+  const rows = await getListByQuery(q)
 
   return rows
 }

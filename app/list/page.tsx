@@ -9,12 +9,12 @@ export const metadata = {
 }
 
 async function List({ searchParams }: ListProps) {
-  const months = getUniqueMonths()
+  const months = await getUniqueMonths()
   const first = months.at(0)!
   const last = months.at(-1)!
   const defaultDate = searchParams.date ?? last
   const currentIndex = months.findIndex((month) => month === defaultDate)
-  const data = getListByDate(defaultDate)
+  const data = await getListByDate(defaultDate)
 
   return (
     <div className="flex flex-col gap-2">

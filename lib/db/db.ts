@@ -1,20 +1,20 @@
-import { drizzle } from 'drizzle-orm/better-sqlite3'
-import Database from 'better-sqlite3'
+import { drizzle } from 'drizzle-orm/libsql'
 import { SelectQuoteSchema, zitat, DateRangeSchema } from './schema'
 import { eq, getTableColumns, sql } from 'drizzle-orm'
+import { createClient } from '@libsql/client'
 
-export const sqlite = new Database('zitat.db')
+const client = createClient({
+  url: 'file:zitat.db',
+})
 
-export const db = drizzle(sqlite)
+export const db = drizzle(client)
 
-export function getListByQuery(q: string) {
-  const result = sqlite
-    .prepare(
-      `SELECT uuid, date, highlight(zitat_fts, 2, '<em>', '</em>') as quote, highlight(zitat_fts, 3, '<em>', '</em>') as author FROM zitat_fts WHERE zitat_fts MATCH '${q}*';`
-    )
-    .all() as SelectQuoteSchema[]
+export async function getListByQuery(q: string) {
+  const result = await client.execute(
+    `SELECT uuid, date, highlight(zitat_fts, 2, '<em>', '</em>') as quote, highlight(zitat_fts, 3, '<em>', '</em>') as author FROM zitat_fts WHERE zitat_fts MATCH '${q}*';`
+  )
 
-  return result
+  return result.rows
 }
 
 export function getListByDate(date: `${string}-${string}` | string) {
@@ -39,16 +39,16 @@ export function getItemById(id: SelectQuoteSchema['uuid']) {
   return db.select().from(zitat).where(eq(zitat.uuid, id))
 }
 
-export function getDateRanges() {
-  const result = db.all<DateRangeSchema>(
+export async function getDateRanges() {
+  const result = await db.all<DateRangeSchema>(
     sql`SELECT strftime('%Y-%m', MIN(date)) AS first_month, strftime('%Y-%m', MAX(date)) AS last_month FROM ${zitat}`
   )
 
   return result.at(0)
 }
 
-export function getUniqueMonths() {
-  const result = db.all<{ month: string }>(
+export async function getUniqueMonths() {
+  const result = await db.all<{ month: string }>(
     sql`SELECT DISTINCT strftime('%Y-%m', date) AS month FROM ${zitat} ORDER BY date`
   )
 
