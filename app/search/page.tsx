@@ -1,14 +1,21 @@
+import { Metadata } from 'next'
 import { SearchForm } from './components/SearchForm'
 import { SearchQuery } from './components/SearchQuery'
 import { Suspense } from 'react'
 
-export const metadata = {
-  title: 'zitat - 검색',
-}
-
 type Props = {
   searchParams: {
     q: string
+  }
+}
+
+export async function generateMetadata({
+  searchParams,
+}: Props): Promise<Metadata> {
+  const { q } = searchParams
+
+  return {
+    title: `zitat - 검색: ${q}`,
   }
 }
 
