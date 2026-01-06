@@ -15,6 +15,7 @@ import { fileURLToPath } from 'url'
 interface AddQuoteArgs {
   quote: string
   author: string
+  keywords?: string[]
 }
 
 interface SearchQuotesArgs {
@@ -24,6 +25,11 @@ interface SearchQuotesArgs {
 
 interface ListRecentQuotesArgs {
   limit?: number
+}
+
+interface UpdateKeywordsArgs {
+  uuid: string
+  keywords: string[]
 }
 
 interface QuoteRecord {
@@ -103,6 +109,11 @@ class QuoteServer {
                 type: 'string',
                 description: 'The author of the quote',
               },
+              keywords: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Keywords for the quote (optional)',
+              },
             },
             required: ['quote', 'author'],
           },
@@ -140,6 +151,25 @@ class QuoteServer {
             },
           },
         },
+        {
+          name: 'update_keywords',
+          description: 'Update keywords for an existing quote',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              uuid: {
+                type: 'string',
+                description: 'The UUID of the quote to update',
+              },
+              keywords: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Keywords to set for the quote',
+              },
+            },
+            required: ['uuid', 'keywords'],
+          },
+        },
       ],
     }))
 
@@ -150,7 +180,11 @@ class QuoteServer {
         switch (name) {
           case 'add_quote':
             const addArgs = args as unknown as AddQuoteArgs
-            return await this.addQuote(addArgs.quote, addArgs.author)
+            return await this.addQuote(
+              addArgs.quote,
+              addArgs.author,
+              addArgs.keywords
+            )
           case 'search_quotes':
             const searchArgs = args as unknown as SearchQuotesArgs
             return await this.searchQuotes(
@@ -160,6 +194,12 @@ class QuoteServer {
           case 'list_recent_quotes':
             const listArgs = args as ListRecentQuotesArgs
             return await this.listRecentQuotes(listArgs.limit || 10)
+          case 'update_keywords':
+            const updateArgs = args as unknown as UpdateKeywordsArgs
+            return await this.updateKeywords(
+              updateArgs.uuid,
+              updateArgs.keywords
+            )
           default:
             throw new Error(`Unknown tool: ${name}`)
         }
@@ -179,26 +219,40 @@ class QuoteServer {
     })
   }
 
-  private async addQuote(quote: string, author: string) {
+  private async addQuote(quote: string, author: string, keywords?: string[]) {
     const uuid = randomUUID()
     const date = new Date().toISOString().split('T')[0]
+    const keywordsJson = keywords ? JSON.stringify(keywords) : null
 
     await this.db.execute({
-      sql: `INSERT INTO zitat (uuid, date, quote, author) VALUES (?, ?, ?, ?)`,
-      args: [uuid, date, quote, author],
+      sql: `INSERT INTO zitat (uuid, date, quote, author, keywords) VALUES (?, ?, ?, ?, ?)`,
+      args: [uuid, date, quote, author, keywordsJson],
     })
 
     const newRecord: QuoteRecord = { uuid, date, quote, author }
+
     this.quotes.push(newRecord)
+
     if (this.fuse) {
       this.fuse.add(newRecord)
     }
+
+    let relationshipsCount = 0
+
+    if (keywords && keywords.length > 0) {
+      await this.processKeywords(uuid, keywords)
+      relationshipsCount = await this.updateRelationships(uuid, keywords)
+    }
+
+    const keywordsText = keywords ? `\n키워드: ${keywords.join(', ')}` : ''
+    const relationshipsText =
+      relationshipsCount > 0 ? `\n연관 명언: ${relationshipsCount}개` : ''
 
     return {
       content: [
         {
           type: 'text',
-          text: `✅ 명언이 성공적으로 추가되었습니다!\n\nUUID: ${uuid}\n날짜: ${date}\n명언: "${quote}"\n작가: ${author}`,
+          text: `✅ 명언이 성공적으로 추가되었습니다!\n\nUUID: ${uuid}\n날짜: ${date}\n명언: "${quote}"\n작가: ${author}${keywordsText}${relationshipsText}`,
         },
       ],
     }
@@ -273,6 +327,113 @@ class QuoteServer {
         },
       ],
     }
+  }
+
+  private async updateKeywords(uuid: string, keywords: string[]) {
+    const existing = await this.db.execute({
+      sql: `SELECT quote, author FROM zitat WHERE uuid = ?`,
+      args: [uuid],
+    })
+
+    if (existing.rows.length === 0) {
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `❌ UUID "${uuid}"에 해당하는 명언을 찾을 수 없습니다.`,
+          },
+        ],
+        isError: true,
+      }
+    }
+
+    const quote = existing.rows[0][0] as string
+    const author = existing.rows[0][1] as string
+
+    await this.db.execute({
+      sql: `UPDATE zitat SET keywords = ? WHERE uuid = ?`,
+      args: [JSON.stringify(keywords), uuid],
+    })
+
+    await this.processKeywords(uuid, keywords)
+    const relationshipsCount = await this.updateRelationships(uuid, keywords)
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `✅ 키워드가 업데이트되었습니다!\n\n명언: "${quote}"\n작가: ${author}\n키워드: ${keywords.join(
+            ', '
+          )}\n연관 명언: ${relationshipsCount}개`,
+        },
+      ],
+    }
+  }
+
+  private async processKeywords(
+    uuid: string,
+    keywords: string[]
+  ): Promise<void> {
+    for (const keyword of keywords) {
+      await this.db.execute({
+        sql: `INSERT OR IGNORE INTO keywords (keyword) VALUES (?)`,
+        args: [keyword],
+      })
+
+      await this.db.execute({
+        sql: `INSERT OR IGNORE INTO quote_keywords (quote_uuid, keyword_id)
+              SELECT ?, id FROM keywords WHERE keyword = ?`,
+        args: [uuid, keyword],
+      })
+    }
+  }
+
+  private async updateRelationships(
+    uuid: string,
+    keywords: string[]
+  ): Promise<number> {
+    const result = await this.db.execute({
+      sql: `
+        SELECT
+          qk.quote_uuid,
+          COUNT(DISTINCT k.keyword) as shared_count,
+          GROUP_CONCAT(k.keyword) as shared_keywords,
+          (SELECT COUNT(*) FROM quote_keywords WHERE quote_uuid = qk.quote_uuid) as other_keyword_count
+        FROM quote_keywords qk
+        JOIN keywords k ON qk.keyword_id = k.id
+        WHERE k.keyword IN (${keywords.map(() => '?').join(',')})
+          AND qk.quote_uuid != ?
+        GROUP BY qk.quote_uuid
+        HAVING shared_count > 0
+      `,
+      args: [...keywords, uuid],
+    })
+
+    const newKeywordCount = keywords.length
+
+    for (const row of result.rows) {
+      const otherUuid = row[0] as string
+      const sharedCount = row[1] as number
+      const sharedKeywords = (row[2] as string).split(',')
+      const otherKeywordCount = row[3] as number
+
+      const similarityScore =
+        sharedCount / Math.max(newKeywordCount, otherKeywordCount)
+
+      await this.db.execute({
+        sql: `INSERT OR REPLACE INTO quote_relationships
+              (quote_uuid_1, quote_uuid_2, relationship_type, similarity_score, shared_keywords)
+              VALUES (?, ?, 'keyword', ?, ?)`,
+        args: [
+          uuid,
+          otherUuid,
+          similarityScore,
+          JSON.stringify(sharedKeywords),
+        ],
+      })
+    }
+
+    return result.rows.length
   }
 
   async run(): Promise<void> {
