@@ -1,4 +1,4 @@
-import { getListByQuery } from '../../lib/db/db'
+import { getListByQuery } from '../../lib/db/search'
 import { SelectQuoteSchema } from '../../lib/db/schema'
 
 export async function getSearchResult(q: string) {

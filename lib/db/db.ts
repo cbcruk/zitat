@@ -9,14 +9,6 @@ const client = createClient({
 
 export const db = drizzle(client)
 
-export async function getListByQuery(q: string) {
-  const result = await client.execute(
-    `SELECT uuid, date, highlight(zitat_fts, 2, '<em>', '</em>') as quote, highlight(zitat_fts, 3, '<em>', '</em>') as author FROM zitat_fts WHERE zitat_fts MATCH '${q}*';`
-  )
-
-  return result.rows
-}
-
 export function getListByDate(date: `${string}-${string}` | string) {
   const result = db.all<SelectQuoteSchema>(
     sql`SELECT * FROM ${zitat} WHERE strftime('%Y-%m', date) = ${date}`

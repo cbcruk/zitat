@@ -8,6 +8,7 @@ import {
 } from '@modelcontextprotocol/sdk/types.js'
 import { createClient, Client } from '@libsql/client'
 import { randomUUID } from 'crypto'
+import Fuse, { FuseResult } from 'fuse.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -25,9 +26,18 @@ interface ListRecentQuotesArgs {
   limit?: number
 }
 
+interface QuoteRecord {
+  uuid: string
+  date: string
+  quote: string
+  author: string
+}
+
 class QuoteServer {
   private server: Server
   private db: Client
+  private fuse: Fuse<QuoteRecord> | null = null
+  private quotes: QuoteRecord[] = []
 
   constructor() {
     this.server = new Server(
@@ -50,6 +60,30 @@ class QuoteServer {
       url: `file:${dbPath}`,
     })
     this.setupToolHandlers()
+  }
+
+  private async initializeFuseIndex(): Promise<void> {
+    const result = await this.db.execute(
+      'SELECT uuid, date, quote, author FROM zitat'
+    )
+
+    this.quotes = result.rows.map((row) => ({
+      uuid: row[0] as string,
+      date: row[1] as string,
+      quote: row[2] as string,
+      author: row[3] as string,
+    }))
+
+    this.fuse = new Fuse(this.quotes, {
+      keys: [
+        { name: 'quote', weight: 0.7 },
+        { name: 'author', weight: 0.3 },
+      ],
+      threshold: 0.4,
+      includeScore: true,
+      ignoreLocation: true,
+      minMatchCharLength: 2,
+    })
   }
 
   private setupToolHandlers(): void {
@@ -154,6 +188,12 @@ class QuoteServer {
       args: [uuid, date, quote, author],
     })
 
+    const newRecord: QuoteRecord = { uuid, date, quote, author }
+    this.quotes.push(newRecord)
+    if (this.fuse) {
+      this.fuse.add(newRecord)
+    }
+
     return {
       content: [
         {
@@ -165,16 +205,11 @@ class QuoteServer {
   }
 
   private async searchQuotes(query: string, limit: number) {
-    const result = await this.db.execute({
-      sql: `SELECT uuid, date, quote, author 
-            FROM zitat 
-            WHERE quote LIKE ? OR author LIKE ?
-            ORDER BY date DESC
-            LIMIT ?`,
-      args: [`%${query}%`, `%${query}%`, limit],
-    })
+    if (!this.fuse) {
+      await this.initializeFuseIndex()
+    }
 
-    const results = result.rows
+    const results = this.fuse!.search(query, { limit })
 
     if (results.length === 0) {
       return {
@@ -188,7 +223,10 @@ class QuoteServer {
     }
 
     const resultText = results
-      .map((r, i) => `${i + 1}. "${r[2]}" - ${r[3]} (${r[1]})`)
+      .map(
+        (r: FuseResult<QuoteRecord>, i: number) =>
+          `${i + 1}. "${r.item.quote}" - ${r.item.author} (${r.item.date})`
+      )
       .join('\n\n')
 
     return {

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "prebuild": "npx tsx scripts/prebuild-quotes.ts",
+    "build": "pnpm prebuild && next build",
     "start": "next start",
     "lint": "next lint",
     "knip": "knip",
@@ -16,6 +17,7 @@
     "dayjs": "1.11.4",
     "drizzle-orm": "^0.32.1",
     "drizzle-zod": "^0.5.1",
+    "fuse.js": "^7.1.0",
     "hono": "^4.7.2",
     "ioredis": "^5.2.2",
     "next": "14.2.4",

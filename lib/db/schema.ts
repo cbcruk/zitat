@@ -17,13 +17,6 @@ export const zitat = sqliteTable('zitat', {
   keywords: text('keywords'),
 })
 
-export const zitat_fts = sqliteTable('zitat_fts', {
-  uuid: text('uuid').primaryKey(),
-  date: text('date').notNull(),
-  quote: text('quote').notNull(),
-  author: text('author').notNull(),
-})
-
 export const keywords = sqliteTable('keywords', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   keyword: text('keyword').unique().notNull(),
