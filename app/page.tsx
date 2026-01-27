@@ -7,10 +7,10 @@ import { getRandomItem } from '../lib/db/db'
 import { siteConfig } from '../lib/site.config'
 
 export const metadata: Metadata = {
-  title: `${siteConfig.name} - 오늘의 명언`,
+  title: `${siteConfig.name}`,
   description: siteConfig.description,
   openGraph: {
-    title: `${siteConfig.name} - 오늘의 명언`,
+    title: `${siteConfig.name}`,
     description: '매일 새로운 명언을 만나보세요.',
     url: siteConfig.url,
     type: 'website',
