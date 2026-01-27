@@ -1,8 +1,21 @@
+import { Metadata } from 'next'
 import Author from '../components/Author'
 import { Fab } from '../components/Fab'
 import Quote from '../components/Quote'
 import Released from '../components/Released'
 import { getRandomItem } from '../lib/db/db'
+import { siteConfig } from '../lib/site.config'
+
+export const metadata: Metadata = {
+  title: `${siteConfig.name} - 오늘의 명언`,
+  description: siteConfig.description,
+  openGraph: {
+    title: `${siteConfig.name} - 오늘의 명언`,
+    description: '매일 새로운 명언을 만나보세요.',
+    url: siteConfig.url,
+    type: 'website',
+  },
+}
 
 async function Home() {
   const item = await getRandomItem()

@@ -5,14 +5,19 @@ import clsx from 'clsx'
 import { GoogleTag } from '../components/GoogleTag'
 import Header from '../components/Header'
 import { NavigationBar } from '../components/NavigationBar'
+import { siteConfig } from '../lib/site.config'
 import '../styles/theme.css'
 import '../styles/globals.css'
 
 export const metadata: Metadata = {
-  title: 'zitat',
-  description: '나 보려고 만든 페이지',
+  title: {
+    default: siteConfig.name,
+    template: '%s',
+  },
+  description: siteConfig.description,
+  keywords: [...siteConfig.keywords],
   openGraph: {
-    images: ['https://zitat.vercel.app/og_image.jpg'],
+    images: [siteConfig.ogImage],
   },
   icons: [
     { rel: 'icon', url: '/favicon.ico', sizes: 'any' },
