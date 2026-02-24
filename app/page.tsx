@@ -1,9 +1,7 @@
 import { Metadata } from 'next'
 import Author from '../components/Author'
-import { Fab } from '../components/Fab'
 import Quote from '../components/Quote'
-import Released from '../components/Released'
-import { getRandomItem } from '../lib/db/db'
+import { getRandomItems } from '../lib/db/db'
 import { siteConfig } from '../lib/site.config'
 
 export const metadata: Metadata = {
@@ -18,23 +16,19 @@ export const metadata: Metadata = {
 }
 
 async function Home() {
-  const item = await getRandomItem()
+  const [item] = await getRandomItems(1)
 
   if (!item) {
     return null
   }
 
   return (
-    <>
-      <Released released={item.date} />
-      <blockquote>
-        <Quote data-is-long={Boolean(item.quote && item.quote.length > 100)}>
-          {item.quote}
-        </Quote>
-        <Author author={item.author} />
-      </blockquote>
-      <Fab text={`${item.quote}${item.author && `\n\n-${item.author}`}`} />
-    </>
+    <blockquote>
+      <Quote data-is-long={Boolean(item.quote && item.quote.length > 100)}>
+        {item.quote}
+      </Quote>
+      <Author author={item.author} />
+    </blockquote>
   )
 }
 

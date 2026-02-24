@@ -11,20 +11,22 @@ export const db = drizzle(client)
 
 export function getListByDate(date: `${string}-${string}` | string) {
   const result = db.all<SelectQuoteSchema>(
-    sql`SELECT * FROM ${zitat} WHERE strftime('%Y-%m', date) = ${date}`
+    sql`SELECT * FROM ${zitat} WHERE strftime('%Y-%m', date) = ${date}`,
   )
 
   return result
 }
 
-export async function getRandomItem() {
+export async function getRandomItems(
+  count: number = 1,
+): Promise<SelectQuoteSchema[]> {
   const result = await db
     .select(getTableColumns(zitat))
     .from(zitat)
     .orderBy(sql`RANDOM()`)
-    .limit(1)
+    .limit(count)
 
-  return result.at(0)
+  return result
 }
 
 export function getItemById(id: SelectQuoteSchema['uuid']) {
@@ -33,7 +35,7 @@ export function getItemById(id: SelectQuoteSchema['uuid']) {
 
 export async function getDateRanges() {
   const result = await db.all<DateRangeSchema>(
-    sql`SELECT strftime('%Y-%m', MIN(date)) AS first_month, strftime('%Y-%m', MAX(date)) AS last_month FROM ${zitat}`
+    sql`SELECT strftime('%Y-%m', MIN(date)) AS first_month, strftime('%Y-%m', MAX(date)) AS last_month FROM ${zitat}`,
   )
 
   return result.at(0)
@@ -41,7 +43,7 @@ export async function getDateRanges() {
 
 export async function getUniqueMonths() {
   const result = await db.all<{ month: string }>(
-    sql`SELECT DISTINCT strftime('%Y-%m', date) AS month FROM ${zitat} ORDER BY date`
+    sql`SELECT DISTINCT strftime('%Y-%m', date) AS month FROM ${zitat} ORDER BY date`,
   )
 
   return result.map((row) => row.month)
